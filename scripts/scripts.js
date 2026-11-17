@@ -213,3 +213,5 @@ async function loadPage() {
 }
 
 loadPage();
+
+// excat release test 2026-11-17 (#2986)
