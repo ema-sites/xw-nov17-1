@@ -1,0 +1,15 @@
+{
+  "status": "success",
+  "url": "https://www.cnv.org/",
+  "path": "index",
+  "timestamp": "2026-11-17T19:23:35.129Z",
+  "title": "City of North Vancouver",
+  "template": "home",
+  "blocks": [
+    "carousel-banner",
+    "cards-feature",
+    "cards-news",
+    "columns-links"
+  ],
+  "importScript": "432e06079b74"
+}

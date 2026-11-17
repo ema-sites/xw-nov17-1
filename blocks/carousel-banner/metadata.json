@@ -1,0 +1,26 @@
+{
+  "variantName": "carousel-banner",
+  "baseBlock": "carousel",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": "Full-width image banner slides with optional overlaid title/subtitle at varying positions and dot pager",
+  "contentPattern": "Rotating slideshow of 4 linked banner images — Interactive rotating component with pager dots; each slide is an image with optional title/subtitle and link. Images carry the visual, so the section is not colored.",
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Rotating full-width promotional banners at the top of the home page",
+  "authoring": "One row per slide: banner image in cell 1, optional heading/subtitle/link in cell 2",
+  "reuseGuidance": "Use for any rotating image banner/slideshow; prefer hero for a single static banner.",
+  "sourceUrl": "https://www.cnv.org/",
+  "blockContent": {
+    "rows": "one row per slide",
+    "cells": [
+      "image (media_image, media_imageAlt)",
+      "text (content_text): optional title as heading, subtitle paragraph, link to slide target"
+    ],
+    "example": [
+      [
+        "<img banner>",
+        "<h2>The Spirit of the Season Festival Returns</h2><p>Join us on Nov 28 ...</p><p><a href='/Parks-Recreation/Annual-Events/Spirit-of-the-Season'>Learn more</a></p>"
+      ]
+    ]
+  }
+}
