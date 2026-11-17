@@ -11,21 +11,17 @@
       "accordion",
       "button",
       "cards",
-      "cards-feature",
-      "cards-news",
       "carousel",
-      "carousel-banner",
       "columns",
-      "columns-links",
       "embed",
-      "form",
       "fragment",
+      "form",
       "hero",
       "image",
       "quote",
       "search",
-      "table",
       "tabs",
+      "table",
       "text",
       "title",
       "video"
@@ -38,39 +34,15 @@
     ]
   },
   {
-    "id": "cards-feature",
-    "components": [
-      "cards-feature-card"
-    ]
-  },
-  {
-    "id": "cards-news",
-    "components": [
-      "cards-news-card"
-    ]
-  },
-  {
     "id": "cards",
     "components": [
       "card"
     ]
   },
   {
-    "id": "carousel-banner",
-    "components": [
-      "carousel-banner-item"
-    ]
-  },
-  {
     "id": "carousel",
     "components": [
       "carousel-item"
-    ]
-  },
-  {
-    "id": "columns-links",
-    "components": [
-      "column"
     ]
   },
   {
