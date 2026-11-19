@@ -1,0 +1,32 @@
+{
+  "variantName": "columns-related-links",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "minimal",
+    "hasGrid": true,
+    "imagePattern": "noimg",
+    "structure": "list + link",
+    "purpose": "side-by-side link groups such as Related Documents and Related Links"
+  },
+  "contentPattern": {
+    "structure": "one row; one cell per group: heading + bulleted list of links"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "v_66759cfe2ad0"
+  ],
+  "usage": {
+    "pageCount": 26,
+    "instanceCount": 26,
+    "examplePages": [
+      "https://www.cnv.org/Business-Development/Building/Energy-Efficient-Buildings-Initiative/New-Buildings",
+      "https://www.cnv.org/Business-Development/Building/Land-Use-Approvals/Zoning",
+      "https://www.cnv.org/Business-Development/Business-Licences/Food-Trucks",
+      "https://www.cnv.org/Business-Development/Business-Licences/Recreational-Cannabis-Retail",
+      "https://www.cnv.org/Business-Development/Business-Licences/Short-Term-Rentals"
+    ]
+  },
+  "reuseGuidance": "Use for related documents / related links groups at the end of content pages."
+}

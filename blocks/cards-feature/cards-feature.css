@@ -1,0 +1,214 @@
+/* Cards Feature
+ * Source: cnv.org .featureListingsThreeColumn / .featureCTAs .featureItem (photo cards)
+ * and .featured-grid (bordered icon tiles).
+ */
+
+.cards-feature {
+  margin: 0 0 12px;
+  color: var(--text-color);
+  font-size: var(--body-font-size-m);
+  line-height: var(--body-line-height);
+}
+
+.cards-feature > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, min(294px, 100%));
+  column-gap: 15px;
+}
+
+.cards-feature p {
+  margin: 0;
+}
+
+/* ---------- icons: FontAwesome SVGs render black; tint to source blue #438ece ---------- */
+
+.cards-feature .cards-feature-card-icon {
+  line-height: 0;
+}
+
+.cards-feature .cards-feature-card-icon .icon {
+  width: 36px;
+  height: 36px;
+}
+
+.cards-feature .cards-feature-card-icon .icon img {
+  object-fit: contain;
+  filter: invert(25%) sepia(77%) saturate(6487%) hue-rotate(227deg) brightness(189%) contrast(62%);
+}
+
+/* stretch the label link over the whole tile */
+.cards-feature .cards-feature-card-linked a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+/* ---------- feature cards: photo + title + blurb + learn more ---------- */
+
+.cards-feature .cards-feature-card-feature {
+  margin-bottom: 10px;
+}
+
+.cards-feature .cards-feature-card-image {
+  line-height: 0;
+}
+
+.cards-feature .cards-feature-card-feature .cards-feature-card-image img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+/* source keeps one (empty) description line under every title */
+.cards-feature .cards-feature-card-feature .cards-feature-card-body {
+  min-height: calc(42px + 1.6em);
+}
+
+.cards-feature .cards-feature-card-body :is(h2, h3, h4) {
+  margin: 0;
+  padding: 11px 0 7px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  color: var(--heading-color);
+}
+
+.cards-feature .cards-feature-card-body :is(h2, h3, h4) a:any-link {
+  color: var(--heading-color);
+}
+
+.cards-feature .cards-feature-card-feature .cards-feature-card-icon {
+  margin-bottom: 15px;
+}
+
+.cards-feature .cards-feature-card-feature .cards-feature-card-icon + :is(h2, h3, h4) {
+  padding-top: 0;
+}
+
+/* "Learn More >" */
+.cards-feature .cards-feature-card-more {
+  display: block;
+  margin-top: 16px;
+}
+
+main .cards-feature .cards-feature-card-more a:any-link {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  line-height: 12px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--link-color);
+}
+
+main .cards-feature .cards-feature-card-more a:any-link::after {
+  content: '';
+  display: inline-block;
+  width: 0.625em;
+  height: 1em;
+  margin-left: 8px;
+  vertical-align: -0.125em;
+  background-color: currentcolor;
+  mask: url('../../icons/fa-angle-right.svg') no-repeat center / contain;
+}
+
+main .cards-feature .cards-feature-card-more a:hover {
+  color: var(--brand-dark-blue);
+  text-decoration: none;
+}
+
+/* ---------- link tiles: bordered icon + label ---------- */
+
+.cards-feature:has(.cards-feature-card-tile) > ul {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin: 6px 0;
+}
+
+.cards-feature .cards-feature-card-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0 16px;
+  text-align: center;
+  line-height: 1.2;
+  font-weight: 500;
+  background-color: var(--background-color);
+  box-shadow: inset 0 0 1px 1px #d6d6d7;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.cards-feature .cards-feature-card-tile .cards-feature-card-icon {
+  margin-bottom: 15px;
+}
+
+.cards-feature .cards-feature-card-tile .cards-feature-card-body p:not(.cards-feature-card-icon) {
+  max-width: 165px;
+  margin: auto;
+  padding: 0 8px;
+  font-size: 15px;
+  line-height: 1.35;
+  overflow-wrap: break-word;
+}
+
+main .cards-feature .cards-feature-card-tile a:any-link {
+  color: var(--link-color);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.cards-feature .cards-feature-card-tile:hover {
+  background-color: var(--brand-navy);
+}
+
+main .cards-feature .cards-feature-card-tile:hover a:any-link {
+  color: #fff;
+  text-decoration: none;
+}
+
+.cards-feature .cards-feature-card-tile:hover .cards-feature-card-icon .icon img {
+  filter: brightness(0) invert(1);
+}
+
+@media (width >= 900px) {
+  .cards-feature {
+    margin-bottom: 15px;
+  }
+
+  .cards-feature > ul {
+    grid-template-columns: repeat(auto-fill, 237px);
+    column-gap: 30px;
+  }
+
+  .cards-feature .cards-feature-card-feature {
+    margin-bottom: 28px;
+  }
+
+  .cards-feature:has(.cards-feature-card-tile) > ul {
+    grid-template-columns: repeat(auto-fill, minmax(172px, 1fr));
+  }
+
+  /* homepage .homeCTAs row (only page with a carousel): 4 cards of 24.25% + 1% gutters
+   * across the full 1140px content width, 40px below the banner. */
+  main:has(.carousel) .cards-feature:not(:has(.cards-feature-card-tile)) {
+    padding-top: 10px;
+
+    /* source: card bottom to "City News & Events" title is 28px + 64px */
+    padding-bottom: 34px;
+  }
+
+  main:has(.carousel) .cards-feature:not(:has(.cards-feature-card-tile)) > ul {
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 1%;
+  }
+
+  main:has(.carousel) .cards-feature:not(:has(.cards-feature-card-tile)) .cards-feature-card-more {
+    margin-top: 8px;
+    margin-bottom: 10px;
+  }
+}

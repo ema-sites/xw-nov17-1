@@ -1,0 +1,48 @@
+{
+  "variantName": "search-keyword",
+  "baseBlock": "search",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "minimal",
+    "hasGrid": true,
+    "imagePattern": "noimg",
+    "structure": "field + link",
+    "purpose": "keyword box with a GO / Search button sending the query to a search or lookup page (meetings, bylaws, address lookup)"
+  },
+  "contentPattern": {
+    "structure": "key/value rows, all optional: Label, Placeholder, Button, Action, Param"
+  },
+  "options": [
+    {
+      "class": "rounded",
+      "label": "Rounded"
+    },
+    {
+      "class": "blue-2",
+      "label": "Blue 2"
+    },
+    {
+      "class": "wide",
+      "label": "Wide"
+    }
+  ],
+  "memberVariantIds": [
+    "v_f575d9a8f56d",
+    "v_6cf62fb8fb2b",
+    "v_21b945b31e66",
+    "v_e12d428fc451"
+  ],
+  "usage": {
+    "pageCount": 21,
+    "instanceCount": 22,
+    "examplePages": [
+      "https://www.cnv.org/City-Hall/Council-Meetings/Council-Agendas,-Minutes-and-Videos/2012-Meetings",
+      "https://www.cnv.org/City-Hall/Council-Meetings/Council-Agendas,-Minutes-and-Videos/2013-Meetings",
+      "https://www.cnv.org/City-Hall/Council-Meetings/Council-Agendas,-Minutes-and-Videos/2014-Meetings",
+      "https://www.cnv.org/City-Hall/Council-Meetings/Council-Agendas,-Minutes-and-Videos/2015-Meetings",
+      "https://www.cnv.org/City-Hall/Council-Meetings/Council-Agendas,-Minutes-and-Videos/2016-Meetings"
+    ]
+  },
+  "reuseGuidance": "Use for a single keyword search form. Set Rounded for the rounded box and button; Blue 2 is an alternate button style hook. Set Wide for the site search page (wide box with the button right beside it). Use listing-filter when a dropdown is needed."
+}

@@ -1,0 +1,28 @@
+{
+  "variantName": "cards-icon",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "minimal",
+    "hasGrid": true,
+    "imagePattern": "noimg",
+    "structure": "link",
+    "purpose": "row of circular photos, each with an underlined link caption to an item detail page"
+  },
+  "contentPattern": {
+    "structure": "one row per item: image cell + caption cell (a link)"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "v_e322f8f5737d"
+  ],
+  "usage": {
+    "pageCount": 1,
+    "instanceCount": 1,
+    "examplePages": [
+      "https://www.cnv.org/Home-Property/Garbage-Recycling-Green-Can/Recycling"
+    ]
+  },
+  "reuseGuidance": "Use for small round-photo link lists (e.g. recyclable item types)."
+}

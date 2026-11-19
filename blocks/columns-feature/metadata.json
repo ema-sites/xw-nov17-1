@@ -1,0 +1,38 @@
+{
+  "variantName": "columns-feature",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "minimal",
+    "hasGrid": true,
+    "imagePattern": "noimg",
+    "structure": "image",
+    "purpose": "fixed two-column pair: a text panel (heading, paragraph, bullets or link) beside a large photo"
+  },
+  "contentPattern": {
+    "structure": "one row with two cells: text cell + image cell (either order)"
+  },
+  "options": [
+    {
+      "class": "image-left-boxed-text",
+      "label": "Image Left Boxed Text"
+    }
+  ],
+  "memberVariantIds": [
+    "v_f08a4b9afde2",
+    "v_f08a4b9afde2-1"
+  ],
+  "usage": {
+    "pageCount": 7,
+    "instanceCount": 28,
+    "examplePages": [
+      "https://www.cnv.org/Business-Development/Filming-In-the-City/Filming-Locations/Filming-at-The-Shipyards",
+      "https://www.cnv.org/City-Hall/About/Capital-Projects/Harry-Jerome-Community-Recreation-Centre/About-the-Centre",
+      "https://www.cnv.org/Community-Environment/Social-Planning/Child-Care",
+      "https://www.cnv.org/Streets-Transportation/Transportation-Planning/Walk-CNV",
+      "https://www.cnv.org/City-Hall/Mayor-Council/Mayor-Linda-Buchanan/Community-Updates"
+    ]
+  },
+  "reuseGuidance": "Use for a feature image beside text. Set Image Left Boxed Text for photo-first with a coloured text panel."
+}

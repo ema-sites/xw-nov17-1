@@ -1,0 +1,32 @@
+{
+  "variantName": "table-data",
+  "baseBlock": "table",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "minimal",
+    "hasGrid": false,
+    "imagePattern": "noimg",
+    "structure": "table",
+    "purpose": "bordered data table with a header row and text rows"
+  },
+  "contentPattern": {
+    "structure": "one row per table row; one cell per column; the first row is the header"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "v_b972cd36c81d"
+  ],
+  "usage": {
+    "pageCount": 195,
+    "instanceCount": 255,
+    "examplePages": [
+      "https://www.cnv.org/Business-Development/Building/Development-Cost-Charges",
+      "https://www.cnv.org/Business-Development/Building/Energy-Efficient-Buildings-Initiative/New-Buildings",
+      "https://www.cnv.org/Business-Development/Building/Energy-Efficient-Buildings-Initiative/New-Buildings/Part-3-Buildings",
+      "https://www.cnv.org/Business-Development/Building/Energy-Efficient-Buildings-Initiative/New-Buildings/Part-3-Buildings-Prior-to-November-1st-2023",
+      "https://www.cnv.org/Business-Development/Building/Energy-Efficient-Buildings-Initiative/New-Buildings/Part-9-Buildings"
+    ]
+  },
+  "reuseGuidance": "Use for tabular data (rates, schedules)."
+}

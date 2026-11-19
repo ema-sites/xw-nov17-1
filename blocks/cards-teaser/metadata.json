@@ -1,0 +1,38 @@
+{
+  "variantName": "cards-teaser",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "moderate",
+    "hasGrid": true,
+    "imagePattern": "noimg",
+    "structure": "link + image",
+    "purpose": "list of teasers, each a photo beside a linked title, summary and optional \"Learn more\" link"
+  },
+  "contentPattern": {
+    "structure": "one row per teaser: image cell + body cell (title link, summary, optional Learn more link)"
+  },
+  "options": [
+    {
+      "class": "large-image",
+      "label": "Large Image"
+    }
+  ],
+  "memberVariantIds": [
+    "v_8eee6be47d52",
+    "v_08419248bd5b"
+  ],
+  "usage": {
+    "pageCount": 16,
+    "instanceCount": 45,
+    "examplePages": [
+      "https://www.cnv.org/Business-Development/Business-Licences/Outdoor-Dining",
+      "https://www.cnv.org/Business-Development/Filming-In-the-City/Filming-Locations",
+      "https://www.cnv.org/City-Hall/About/Capital-Projects",
+      "https://www.cnv.org/Community-Environment/Environmental-Protection/Waste",
+      "https://www.cnv.org/Home-Property/Water-Sewer-Drainage/Drainage/Stormwater-Management-Plan-Requirements-for-New-Development"
+    ]
+  },
+  "reuseGuidance": "Use for image + title + summary lists linking to detail pages. Set Large Image for the bigger-photo layout."
+}

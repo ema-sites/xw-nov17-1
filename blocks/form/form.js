@@ -3,7 +3,9 @@ import createField from './form-fields.js';
 async function createForm(formHref, submitHref) {
   const { pathname } = new URL(formHref);
   const resp = await fetch(pathname);
+  if (!resp.ok) throw new Error(`form definition ${pathname}: ${resp.status}`);
   const json = await resp.json();
+  if (!Array.isArray(json?.data) || !json.data.length) throw new Error(`form definition ${pathname}: no fields`);
 
   const form = document.createElement('form');
   form.dataset.action = submitHref;
@@ -81,9 +83,27 @@ export default async function decorate(block) {
   const links = [...block.querySelectorAll('a')].map((a) => a.href);
   const formLink = links.find((link) => link.startsWith(window.location.origin) && link.endsWith('.json'));
   const submitLink = links.find((link) => link !== formLink);
-  if (!formLink || !submitLink) return;
+  // fail quietly: without a usable definition the block renders nothing (no raw links)
+  const hide = () => {
+    block.replaceChildren();
+    block.hidden = true;
+    const wrapper = block.closest('.form-wrapper');
+    if (wrapper) wrapper.hidden = true;
+  };
+  if (!formLink || !submitLink) {
+    hide();
+    return;
+  }
 
-  const form = await createForm(formLink, submitLink);
+  let form;
+  try {
+    form = await createForm(formLink, submitLink);
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.warn('form block: definition unavailable', e.message);
+    hide();
+    return;
+  }
   block.replaceChildren(form);
 
   form.addEventListener('submit', (e) => {

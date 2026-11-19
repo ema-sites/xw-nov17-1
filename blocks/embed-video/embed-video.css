@@ -1,0 +1,81 @@
+/* Embed Video: iframes at the source's size. Source content column is 772px wide;
+   embeds fill it (345px on mobile). */
+.embed-video {
+  width: 100%;
+  max-width: 772px;
+  color: var(--text-color);
+}
+
+/* Generic embeds (GIS map apps): source iframes are 772 x 550 */
+.embed-video .embed-video-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 772 / 550;
+}
+
+/* YouTube / Vimeo: 16:9 (source 772 x 434) */
+.embed-video.embed-video-youtube .embed-video-frame,
+.embed-video.embed-video-vimeo .embed-video-frame {
+  aspect-ratio: 16 / 9;
+}
+
+/* Virtual tours: source wrapper is square (padding-top: 100%) */
+.embed-video .embed-video-frame:has(iframe[src*="vthosting.net"]) {
+  aspect-ratio: 1 / 1;
+}
+
+/* Trumba events calendar: tall, fixed-height source iframe (1081px) */
+.embed-video .embed-video-frame:has(iframe[src*="trumba.com"]) {
+  aspect-ratio: auto;
+  height: 1081px;
+}
+
+.embed-video .embed-video-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.embed-video .embed-video-placeholder {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  cursor: pointer;
+}
+
+.embed-video .embed-video-placeholder > * {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.embed-video .embed-video-placeholder picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.embed-video .embed-video-placeholder-play button {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.embed-video .embed-video-placeholder-play button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: 12px 0 12px 20px;
+  border-color: transparent transparent transparent currentcolor;
+}

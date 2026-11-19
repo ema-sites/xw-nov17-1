@@ -1,0 +1,30 @@
+{
+  "variantName": "title-bar",
+  "baseBlock": "custom",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "minimal",
+    "hasGrid": true,
+    "imagePattern": "noimg",
+    "structure": "button + heading",
+    "purpose": "panel header bar with a title and actions (e.g. Need help?) ending in a Share dropdown"
+  },
+  "contentPattern": {
+    "structure": "row 1: title; row 2 (optional): action links. The Share dropdown is runtime UI drawn by the block"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "v_8b410c414e48",
+    "v_8b410c414e48-1"
+  ],
+  "usage": {
+    "pageCount": 2,
+    "instanceCount": 2,
+    "examplePages": [
+      "https://www.cnv.org/Home-Property/Garbage-Recycling-Green-Can/Recycling",
+      "https://www.cnv.org/Home-Property/Garbage-Recycling-Green-Can/Curbside-Collection"
+    ]
+  },
+  "reuseGuidance": "Use as the header bar above a tool panel (collection calendar, What Goes Where)."
+}

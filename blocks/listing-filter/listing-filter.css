@@ -1,0 +1,74 @@
+/* Listing Filter: dropdown (+ optional keyword box) on the left, GO floated right.
+   Values from source .filterHeader computed styles (cnv.org). */
+
+.listing-filter {
+  color: rgb(51 51 51);
+}
+
+.listing-filter .listing-filter-form {
+  display: flow-root;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  line-height: 22.4px;
+}
+
+/* mobile: the dropdown spans the column, GO drops below it on the right */
+.listing-filter .listing-filter-select,
+.listing-filter .listing-filter-keyword {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 100%;
+  max-width: 100%;
+  height: 35px;
+  margin: 0 0 5px;
+  vertical-align: baseline;
+  font-family: inherit;
+  font-size: 14px;
+  color: rgb(51 51 51);
+}
+
+.listing-filter .listing-filter-keyword {
+  margin-top: 10px;
+  padding: 0 8px;
+  border: 1px solid rgb(118 118 118);
+  border-radius: 0;
+  background-color: #fff;
+}
+
+.listing-filter .listing-filter-submit {
+  position: relative;
+  display: block;
+  float: right;
+  margin: 10px 0;
+  border: 0;
+  border-radius: 0;
+  padding: 12px 20px;
+  background-color: var(--link-color);
+  color: rgb(255 255 255);
+
+  /* NovecentowideLightBold is not served on this site: the source stack falls back */
+  font-family: NovecentowideLightBold, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 12px;
+  text-align: left;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+@media (width >= 900px) {
+  .listing-filter .listing-filter-select,
+  .listing-filter .listing-filter-keyword {
+    width: 200px;
+    margin-bottom: 0;
+  }
+
+  .listing-filter .listing-filter-keyword {
+    margin: 0 0 0 4px;
+  }
+
+  .listing-filter .listing-filter-submit {
+    margin: 0;
+  }
+}

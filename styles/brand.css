@@ -1,0 +1,57 @@
+/*
+ * Brand tokens extracted from https://www.cnv.org/ (content-page-sidebar template,
+ * e.g. /Business-Development/Economic-Development). Raw values: migration-work/brand.json.
+ */
+
+:root {
+  /* colors */
+  --background-color: #fff;
+  --text-color: #333; /* rgb(51 51 51) body copy */
+  --heading-color: #1f3349; /* rgb(31 51 73) h1-h3 */
+  --heading-minor-color: #353535; /* rgb(53 53 53) h4-h6, strong */
+  --link-color: #438ece; /* rgb(67 142 206) */
+  --link-hover-color: #438ece; /* source hover keeps colour, adds underline */
+  --brand-dark-blue: #00467f; /* rgb(0 70 127) hover/active blue */
+  --brand-navy: #294882; /* rgb(41 72 130) */
+  --brand-pink: #ec008c; /* rgb(236 0 140) accent */
+  --brand-red: #c6174e; /* rgb(198 23 78) */
+  --light-color: #f5f5f5;
+  --dark-color: #1f3349;
+  --border-color: #d6d7da; /* rgb(214 215 218) side-nav / divider lines */
+  --hr-color: #ebebeb;
+  --overlay-background-color: #d3d3d3;
+
+  /* fonts */
+  --body-font-family: 'Open Sans', open-sans-fallback, sans-serif;
+  --heading-font-family: 'Open Sans', open-sans-fallback, sans-serif;
+
+  /* body sizes (source uses a single 14px / 160% body size) */
+  --body-font-size-m: 14px;
+  --body-font-size-s: 14px;
+  --body-font-size-xs: 12px;
+  --body-line-height: 1.6;
+
+  /* heading sizes (source does not scale headings on mobile) */
+  --heading-font-size-xxl: 40px;
+  --heading-font-size-xl: 28px;
+  --heading-font-size-l: 21px;
+  --heading-font-size-m: 15px;
+  --heading-font-size-s: 15px;
+  --heading-font-size-xs: 15px;
+
+  /* layout */
+  --content-max-width: 1140px;
+  --content-gutter: 15px;
+  --section-spacing: 30px;
+
+  /* nav heights: header footprint incl. its collapsed top margin (121px mobile, 179px >=1200px) */
+  --nav-height: 121px;
+  --breadcrumbs-height: 34px;
+  --header-height: var(--nav-height);
+}
+
+@media (width >= 1200px) {
+  :root {
+    --nav-height: 179px;
+  }
+}

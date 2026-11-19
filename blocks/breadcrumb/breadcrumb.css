@@ -1,0 +1,75 @@
+/* Mobile base: the trail sits inside the content gutter with a top divider */
+.breadcrumb {
+  margin-bottom: 20px;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  line-height: 22.4px;
+}
+
+.breadcrumb nav {
+  padding: 11px 0 12px;
+}
+
+/* Items flow inline so long labels wrap mid-item, like the source */
+.breadcrumb .breadcrumb-list {
+  display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb .breadcrumb-item {
+  display: inline;
+  margin: 0;
+  color: var(--heading-color);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 21px;
+}
+
+.breadcrumb .breadcrumb-item a:any-link {
+  color: var(--link-color);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 21px;
+  text-decoration: none;
+}
+
+.breadcrumb .breadcrumb-item a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+/* Angle-right separator (fa-angle-right) between items */
+.breadcrumb .breadcrumb-item:not(:last-child)::after {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 8px;
+  margin: 0 13px;
+  background-color: var(--text-color);
+  mask: url('../../icons/fa-angle-right.svg') center / contain no-repeat;
+}
+
+@media (width >= 900px) {
+  /* Full-bleed bar with a bottom divider; the trail stays on the content width */
+  main > .section > .breadcrumb-wrapper {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .breadcrumb {
+    margin-bottom: 0;
+    border-top: 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .breadcrumb nav {
+    box-sizing: border-box;
+    max-width: calc(var(--content-max-width) + (2 * var(--content-gutter)));
+    margin: 0 auto;
+    padding: 11px var(--content-gutter) 12px;
+  }
+}

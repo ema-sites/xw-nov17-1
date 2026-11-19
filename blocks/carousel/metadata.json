@@ -1,0 +1,28 @@
+{
+  "variantName": "carousel",
+  "baseBlock": "carousel",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "minimal",
+    "hasGrid": false,
+    "imagePattern": "noimg",
+    "structure": "",
+    "purpose": "homepage banner slideshow"
+  },
+  "contentPattern": {
+    "structure": "one row per slide: image cell + optional text cell"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "v_99df6aa44e9d"
+  ],
+  "usage": {
+    "pageCount": 1,
+    "instanceCount": 1,
+    "examplePages": [
+      "https://www.cnv.org/"
+    ]
+  },
+  "reuseGuidance": "Use for the homepage banner slideshow."
+}

@@ -1,0 +1,38 @@
+{
+  "variantName": "cards-gallery",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "minimal",
+    "hasGrid": false,
+    "imagePattern": "noimg",
+    "structure": "",
+    "purpose": "photo gallery: a grid of thumbnails that opens a lightbox viewer with caption, slide counter and prev / next / close / fullscreen buttons"
+  },
+  "contentPattern": {
+    "structure": "one row per photo: image cell + optional caption cell. The lightbox viewer, caption bar, counter and buttons are runtime UI drawn by the block, not authored"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "v_307943802cee",
+    "v_e3e16a083a4a",
+    "v_ccd7984651b9",
+    "v_be941da5c96f",
+    "v_a29c69bf3304",
+    "v_88ce619d912d",
+    "v_f890e127b278"
+  ],
+  "usage": {
+    "pageCount": 36,
+    "instanceCount": 397,
+    "examplePages": [
+      "https://www.cnv.org/Business-Development/Filming-In-the-City/Film-Productions-in-the-City",
+      "https://www.cnv.org/Business-Development/Filming-In-the-City/Filming-Locations/Filming-at-The-Shipyards",
+      "https://www.cnv.org/City-Hall/About/Capital-Projects/Harry-Jerome-Community-Recreation-Centre/Explore-the-Project",
+      "https://www.cnv.org/City-Hall/About/Capital-Projects/North-Shore-Neighbourhood-House-Site-Redevelopment",
+      "https://www.cnv.org/City-Hall/About/Capital-Projects/Past-Projects/Flicka-Gymnastics"
+    ]
+  },
+  "reuseGuidance": "Use for any photo set that should open in a lightbox. Do not author the lightbox, caption strip or counter: catalog variants for those were folded into this block."
+}

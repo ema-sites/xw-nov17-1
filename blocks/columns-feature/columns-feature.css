@@ -1,0 +1,114 @@
+/* source: .call-out-5050-anchor / .call-out-5050-columns */
+.columns-feature {
+  margin: 20px 0;
+  background-color: var(--light-color);
+  color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  line-height: 22.4px;
+}
+
+.columns-feature > .columns-feature-row {
+  display: flex;
+  flex-direction: column;
+}
+
+/* source shows the image above the text on mobile in both looks */
+.columns-feature .columns-feature-img-col {
+  order: -1;
+  line-height: 0;
+}
+
+.columns-feature .columns-feature-img-col picture {
+  display: block;
+}
+
+.columns-feature .columns-feature-img-col img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* source .call-out-5050-content-inner */
+.columns-feature .columns-feature-text-col {
+  padding: 15px 25px;
+}
+
+/* boxed variant: coloured text panel (source .call-out-5050-content, sampled from capture) */
+.columns-feature.image-left-boxed-text .columns-feature-text-col {
+  background-color: rgb(244 227 13);
+}
+
+/* source .featureTitle */
+.columns-feature .columns-feature-text-col h1,
+.columns-feature .columns-feature-text-col h2,
+.columns-feature .columns-feature-text-col h3,
+.columns-feature .columns-feature-text-col h4 {
+  margin: 0;
+  padding: 11px 0 7px;
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  color: var(--text-color);
+}
+
+/* source .call-out-content and its paragraphs */
+.columns-feature .columns-feature-text-col p,
+.columns-feature .columns-feature-text-col ul,
+.columns-feature .columns-feature-text-col ol {
+  margin: 0 0 14px;
+  font-size: 14px;
+  line-height: 22.4px;
+  color: var(--text-color);
+}
+
+.columns-feature .columns-feature-text-col ul,
+.columns-feature .columns-feature-text-col ol {
+  padding-left: 20px;
+}
+
+.columns-feature .columns-feature-text-col > :last-child {
+  margin-bottom: 16px;
+}
+
+/* standalone link paragraph (source "EMAIL US >" right-aligned) */
+main .columns-feature .columns-feature-text-col p.button-container {
+  display: block;
+  text-align: right;
+}
+
+.columns-feature .columns-feature-text-col a:any-link,
+main .columns-feature .columns-feature-text-col a.button:any-link {
+  color: var(--link-color);
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.columns-feature .columns-feature-text-col a:hover,
+main .columns-feature .columns-feature-text-col a.button:hover {
+  text-decoration: underline;
+}
+
+@media (width >= 900px) {
+  .columns-feature > .columns-feature-row {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .columns-feature > .columns-feature-row > div {
+    box-sizing: border-box;
+    flex: 0 0 50%;
+    min-width: 0;
+  }
+
+  /* default look keeps the authored order (image left or right) */
+  .columns-feature .columns-feature-img-col {
+    order: 0;
+  }
+
+  .columns-feature.image-left-boxed-text .columns-feature-img-col {
+    order: -1;
+  }
+}

@@ -1,33 +1,119 @@
+/* Columns: values from migration-work/design/columns (source `table.noZebraStripes`, photo look)
+ * and the cnv.org `.divRow > .divCell` markup (text look with `.buttonGray.blue` buttons). */
+.columns {
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  color: rgb(68 68 68);
+}
+
 .columns > div {
   display: flex;
   flex-direction: column;
 }
 
-.columns img {
-  width: 100%;
+.columns > div > div {
+  box-sizing: border-box;
+  min-width: 0;
 }
 
-.columns > div > div {
-  order: 1;
+/* photo look: source table cells, images at their natural size */
+.columns > div:has(> .columns-img-col) {
+  padding: 10px 0;
 }
 
 .columns > div > .columns-img-col {
-  order: 0;
+  padding: 4px 10px;
+  line-height: 19.6px;
 }
 
-.columns > div > .columns-img-col img {
+.columns .columns-img-col img {
   display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
 }
 
-@media (width >= 900px) {
-  .columns > div {
-    align-items: center;
-    flex-direction: unset;
-    gap: 24px;
+/* text look: heading, copy lines, centred blue button */
+.columns > div > div:not(.columns-img-col) {
+  color: var(--text-color);
+  line-height: 22.4px;
+}
+
+.columns > div > div:not(.columns-img-col) + div:not(.columns-img-col) {
+  padding-top: 50px;
+}
+
+.columns h3 {
+  margin: 0 0 5px;
+  font-size: 21px;
+  line-height: 26px;
+  color: var(--link-color);
+}
+
+main .columns p {
+  margin: 0;
+  line-height: 22.4px;
+}
+
+main .columns p.button-container {
+  display: block;
+  margin-top: 22.4px;
+  padding-top: 10px;
+  text-align: center;
+}
+
+main .columns a.button:any-link {
+  display: inline-block;
+  padding: 12px 20px;
+  background-color: var(--link-color);
+  color: rgb(255 255 255);
+  font-family: NovecentowideLightBold, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 12px;
+  text-decoration: none;
+
+  /* Novecento wide is a caps face; keep the caps look with the fallback fonts */
+  text-transform: uppercase;
+}
+
+main .columns a.button:hover,
+main .columns a.button:focus {
+  background-color: var(--link-color);
+  color: rgb(255 255 255);
+  text-decoration: none;
+}
+
+main .columns a.button:active {
+  position: relative;
+  top: 1px;
+}
+
+@media (width >= 600px) {
+  .columns > div:not(:has(> .columns-img-col)) {
+    flex-direction: row;
   }
 
-  .columns > div > div {
-    flex: 1;
-    order: unset;
+  .columns > div:not(:has(> .columns-img-col)) > div {
+    flex: 0 0 50%;
+  }
+
+  .columns > div > div:not(.columns-img-col) + div:not(.columns-img-col) {
+    padding-top: 0;
+  }
+}
+
+@media (width >= 768px) {
+  .columns > div:has(> .columns-img-col) {
+    flex-direction: row;
+    padding: 0;
+  }
+
+  .columns > div:has(> .columns-img-col) > div {
+    flex: 1 1 0;
+  }
+
+  .columns > div > .columns-img-col {
+    padding: 8px 12px;
   }
 }

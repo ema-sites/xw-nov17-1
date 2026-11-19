@@ -1,0 +1,69 @@
+/* Notice: bordered callout, icon beside the message (source .call-out-info.call-out-icon) */
+.notice {
+  display: flex;
+  align-items: stretch;
+  box-sizing: border-box;
+  max-width: calc(100% - 12px);
+  min-height: 36px;
+  margin: 20px 5px;
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
+}
+
+/* icon column: source <i> is 30px wide, 52px tall, padded 0 32px 0 24px inside a 15px inset;
+   the FA free glyph is wider (576/512), so the box is widened and the gaps trimmed to keep the
+   glyph centred at the same spot and the message at the same x */
+.notice .notice-icon,
+.notice.notice-no-icon::before {
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  width: 46px;
+  height: 52px;
+  margin: 15px 24px 15px 31px;
+}
+
+.notice .notice-icon {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  line-height: 0;
+}
+
+.notice .notice-icon .icon,
+.notice .notice-icon img {
+  display: block;
+  width: 46px;
+  height: 40px;
+  object-fit: contain;
+}
+
+/* authored :icon: images render black; tint them to the source icon blue (#438ece) */
+.notice .notice-icon .icon img {
+  filter: invert(51%) sepia(56%) saturate(588%) hue-rotate(169deg) brightness(91%) contrast(87%);
+}
+
+/* no icon authored: show the source's default call-out icon (fa-file-check, #438ece) */
+.notice.notice-no-icon::before {
+  content: '';
+  background-color: var(--link-color);
+  mask: url('../../icons/fa-file-check.svg') no-repeat center bottom / 46px 40px;
+}
+
+.notice .notice-body {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  min-width: 0;
+  margin: 15px 15px 15px 0;
+}
+
+/* source keeps an empty .featureTitle line (18px) above the message */
+.notice .notice-body > :first-child {
+  margin-top: 0;
+  padding-top: 18px;
+}
+
+.notice .notice-body > :last-child {
+  flex-grow: 1;
+  margin-bottom: 0;
+}

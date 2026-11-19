@@ -1,0 +1,73 @@
+/* Cards Icon: grid of circular photo frames with an underlined caption below (source: popular searches) */
+.cards-icon {
+  color: var(--text-color);
+}
+
+.cards-icon > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  place-items: start center;
+}
+
+.cards-icon > ul > li {
+  box-sizing: border-box;
+  max-width: 150px;
+  padding: 12px 0 10px 10px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 25px;
+}
+
+/* circular frame: the photo sits centred at 80% width inside it */
+.cards-icon .cards-icon-card-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 125px;
+  height: 125px;
+  margin: 0 auto;
+  border: 1px solid rgb(221 221 221);
+  border-radius: 100%;
+  box-shadow: rgb(0 0 0 / 50%) 0 0 3px 1px inset;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.cards-icon .cards-icon-card-image p,
+.cards-icon .cards-icon-card-image picture {
+  display: contents;
+  margin: 0;
+}
+
+.cards-icon .cards-icon-card-image img {
+  display: block;
+  width: 80%;
+  height: auto;
+}
+
+.cards-icon .cards-icon-card-body {
+  font-size: 17px;
+  line-height: 25px;
+  text-decoration: underline;
+}
+
+.cards-icon .cards-icon-card-body p {
+  margin: 0;
+}
+
+.cards-icon .cards-icon-card-body a {
+  color: var(--text-color);
+  font-size: 16px;
+  font-weight: 400;
+  text-decoration: underline;
+}
+
+@media (width >= 900px) {
+  .cards-icon > ul {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

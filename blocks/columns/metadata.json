@@ -1,0 +1,31 @@
+{
+  "variantName": "columns",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "minimal",
+    "hasGrid": true,
+    "imagePattern": "noimg",
+    "structure": "table",
+    "purpose": "generic side-by-side columns (e.g. pairs of photos)"
+  },
+  "contentPattern": {
+    "structure": "one row per band; one cell per column"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "v_f365426fae38",
+    "v_ae57d4d6538a"
+  ],
+  "usage": {
+    "pageCount": 3,
+    "instanceCount": 3,
+    "examplePages": [
+      "https://www.cnv.org/Business-Development/Filming-In-the-City/Filming-Locations/Filming-in-City-Hall",
+      "https://www.cnv.org/Community-Environment/Environmental-Protection/Invasive-Species/Chafer-Beetle",
+      "https://www.cnv.org/City-Hall/Mayor-Council/Mayor-Linda-Buchanan"
+    ]
+  },
+  "reuseGuidance": "Use for generic multi-column layouts. Prefer columns-feature for an image beside a text panel and columns-related-links for link groups."
+}

@@ -1,127 +1,162 @@
+/*
+ * Form block: values from the source Sitecore form (cnv.org .mvc-form), measured at 1440 / 375.
+ * Labels sit above the fields, fields are fixed-width boxes with a 1px #444 border,
+ * radios stack one per row and the submit is a small uppercase blue button.
+ */
+
+/* missing or broken form definition: render nothing */
+.form-wrapper[hidden],
+.form[hidden] {
+  display: none;
+}
+
+.form form {
+  font-size: var(--body-font-size-m);
+  line-height: 22.4px;
+  color: var(--text-color);
+}
+
 .form .field-wrapper {
-  display: grid;
-  grid-auto-flow: row;
-  align-items: center;
+  display: block;
+  margin: 0;
 }
 
 .form fieldset {
-  display: grid;
-  grid-auto-flow: row;
+  display: block;
+  min-width: 0;
   margin: 0;
   border: none;
   padding: 0;
 }
 
-.form form > .field-wrapper + .field-wrapper,
-.form form fieldset .field-wrapper + .field-wrapper {
-  margin-top: 24px;
-}
-
-.form form > .selection-wrapper + .selection-wrapper,
-.form form fieldset .selection-wrapper + .selection-wrapper {
-  margin-top: 0.25em;
-}
-
-@media (width >= 600px) {
-  .form fieldset {
-    grid-template-columns: repeat(2, auto);
-    gap: 0.25em 24px;
-  }
-
-  .form form > .selection-wrapper + .selection-wrapper,
-  .form form fieldset .field-wrapper + .field-wrapper,
-  .form form fieldset .selection-wrapper + .selection-wrapper {
-    margin-top: 0;
-  }
-}
-
-@media (width >= 900px) {
-  .form fieldset {
-    grid-template-columns: repeat(3, auto);
-  }
-}
-
-.form label,
-.form fieldset > legend {
-  margin-bottom: 0.25em;
-  font-size: var(--body-font-size-s);
-  font-weight: 700;
-}
-
-.form .selection-wrapper label {
+/* labels: plain body text above the field */
+.form label {
+  display: block;
   margin: 0;
-  font-weight: normal;
+  padding: 0;
+  font-size: var(--body-font-size-m);
+  font-weight: 400;
+  line-height: 22.4px;
+  color: var(--text-color);
 }
 
+/* radio/checkbox group label */
+.form fieldset > legend {
+  display: block;
+  margin: 15px 0 10px;
+  padding: 0;
+  font-size: var(--body-font-size-m);
+  font-weight: 400;
+  line-height: 22.4px;
+  color: var(--text-color);
+}
+
+/* text-like fields */
 .form input,
 .form select,
 .form textarea {
   box-sizing: border-box;
   display: block;
-  width: 100%;
-  margin: 0;
-  padding: 0.5em;
-  border-radius: 4px;
-  border: 1px solid var(--dark-color);
-  background-color: var(--background-color);
-  color: var(--text-color);
-  font-size: var(--body-font-size-s);
-  transition: border-color 0.2s;
+  width: 222px;
+  max-width: 100%;
+  margin: 3px 0 15px;
+  padding: 8px 10px;
+  border: 1px solid rgb(68 68 68);
+  border-radius: 0;
+  background-color: #fff;
+  color: #000;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 22px;
 }
 
 .form textarea {
-  resize: vertical;
+  width: 237px;
+  height: 106px;
+  resize: both;
 }
 
-.form input:hover,
-.form select:hover,
-.form textarea:hover {
-  border: 1px solid var(--text-color);
-}
-
-.form input:focus,
-.form select:focus,
-.form textarea:focus {
-  outline: 2px solid var(--link-color);
-  outline-offset: 2px;
+/* radios and checkboxes: control then label on one row, one option per row */
+.form .field-wrapper.selection-wrapper {
+  display: flex;
+  align-items: flex-start;
+  min-height: 40px;
+  margin: 3px 0 5px;
 }
 
 .form .selection-wrapper input {
-  width: max-content;
+  flex: 0 0 auto;
+  width: 13px;
+  height: 13px;
+  margin: 6px 3px 0 5px;
+  padding: 0;
+  border: 0;
 }
 
-@media (width >= 600px) {
-  .form input,
-  .form select,
-  .form textarea {
-    max-width: 50vw;
-  }
-
-  .form .button {
-    max-width: max-content;
-  }
+.form .selection-wrapper label {
+  margin: 0;
 }
 
-@media (width >= 900px) {
-  .form input,
-  .form select,
-  .form textarea {
-    max-width: 33vw;
-  }
+/* section heading inside a form: uppercase title followed by a rule */
+.form .heading-wrapper h2,
+.form .heading-wrapper h3 {
+  display: flex;
+  margin: 20px 0 5px;
+  padding: 0 0 20px;
+  font-family: var(--heading-font-family);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 20px;
+  color: var(--heading-minor-color);
+  text-transform: uppercase;
 }
 
-.form .field-wrapper.selection-wrapper {
-  grid-auto-flow: column;
-  justify-content: start;
-  gap: 1ch;
+.form .heading-wrapper h2::after,
+.form .heading-wrapper h3::after {
+  content: '';
+  flex: 1 1 auto;
+  height: 1px;
+  margin: 0 0 0 10px;
+  background-color: #000;
+  transform: translateY(10px);
 }
 
-.form label[data-required]::after {
-  content: '*';
-  color: firebrick;
-  margin-inline-start: 1ch;
+.form .plaintext-wrapper p {
+  margin: 0 0 14px;
 }
 
+/* submit */
+main .form button.button {
+  display: inline-block;
+  width: auto;
+  margin: 3px 0 15px;
+  padding: 8px 10px;
+  border: 1px solid rgb(68 68 68);
+  border-radius: 0;
+  background-color: var(--link-color);
+  color: #fff;
+  font-family: NovecentowideLightBold, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 12px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+main .form button.button:hover,
+main .form button.button:focus {
+  background-color: var(--light-color);
+  color: var(--link-color);
+}
+
+main .form button.button:disabled,
+main .form button.button:disabled:hover {
+  background-color: var(--light-color);
+  color: var(--text-color);
+  cursor: unset;
+}
+
+/* toggle (no source equivalent; kept functional) */
 .form .toggle-wrapper .switch {
   position: relative;
   display: inline-block;
@@ -133,6 +168,7 @@
   opacity: 0;
   width: 52px;
   height: 28px;
+  margin: 0;
 }
 
 .form .toggle-wrapper .slider {
@@ -167,4 +203,16 @@
 
 .form .toggle-wrapper input:checked + .slider::before {
   transform: translateX(24px);
+}
+
+@media (width >= 900px) {
+  .form input,
+  .form select,
+  .form textarea {
+    width: 562px;
+  }
+
+  .form input[type='tel'] {
+    width: 242px;
+  }
 }

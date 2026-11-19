@@ -59,7 +59,23 @@
         "table",
         "text",
         "title",
-        "video"
+        "video",
+        "breadcrumb",
+        "cards-feature",
+        "cards-gallery",
+        "cards-icon",
+        "cards-teaser",
+        "columns-feature",
+        "columns-news",
+        "columns-related-links",
+        "embed-video",
+        "listing-filter",
+        "notice",
+        "search-keyword",
+        "table-data",
+        "tabs-tools",
+        "title-bar",
+        "video-date-select"
       ]
     }
   ]

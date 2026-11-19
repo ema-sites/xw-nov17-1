@@ -1,0 +1,33 @@
+{
+  "variantName": "listing-filter",
+  "baseBlock": "custom",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "minimal",
+    "hasGrid": true,
+    "imagePattern": "noimg",
+    "structure": "field + link",
+    "purpose": "filter bar for a listing: category dropdown, optional keyword input and a GO button"
+  },
+  "contentPattern": {
+    "structure": "key/value rows: Select Name, Select Placeholder, Select Options (list), Keyword Name, Keyword Placeholder, Button, Action. Submitting navigates to Action with the values as query parameters"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "v_6494bda89082",
+    "v_6494bda89082-1"
+  ],
+  "usage": {
+    "pageCount": 7,
+    "instanceCount": 7,
+    "examplePages": [
+      "https://www.cnv.org/City-Hall/About/Maps/Map-Catalogue",
+      "https://www.cnv.org/City-Hall/Council-Meetings/Council-Agendas,-Minutes-and-Videos",
+      "https://www.cnv.org/City-Hall/News-Room",
+      "https://www.cnv.org/City-Hall/News-Room/CityView-eNewsletter",
+      "https://www.cnv.org/City-Hall/News-Room/News-Releases"
+    ]
+  },
+  "reuseGuidance": "Use above listings filtered by category / status (map catalogue, bid notices). For a keyword-only box use search-keyword."
+}

@@ -1,0 +1,28 @@
+{
+  "variantName": "tabs-tools",
+  "baseBlock": "tabs",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "minimal",
+    "hasGrid": true,
+    "imagePattern": "noimg",
+    "structure": "list + link",
+    "purpose": "row of icon tabs switching between tool panels (Calendar, What Goes Where, Game, Need help?)"
+  },
+  "contentPattern": {
+    "structure": "one row per tab: label cell (text, optional icon) + panel content cell. A panel whose only content is a link to a /fragments/ page loads that fragment, so a panel can hold blocks"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "v_835cbd4d181e"
+  ],
+  "usage": {
+    "pageCount": 1,
+    "instanceCount": 1,
+    "examplePages": [
+      "https://www.cnv.org/Home-Property/Garbage-Recycling-Green-Can/Curbside-Collection"
+    ]
+  },
+  "reuseGuidance": "Use for tool switchers whose panels hold complex content; put each complex panel in a fragment."
+}

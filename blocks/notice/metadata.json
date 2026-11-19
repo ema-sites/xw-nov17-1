@@ -1,0 +1,33 @@
+{
+  "variantName": "notice",
+  "baseBlock": "custom",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "moderate",
+    "hasGrid": true,
+    "imagePattern": "noimg",
+    "structure": "text + link",
+    "purpose": "bordered callout with an icon beside a status or info message"
+  },
+  "contentPattern": {
+    "structure": "icon (image or :icon:) + rich-text message, as two cells of one row or two rows"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "v_9f5fc5f313eb",
+    "v_9f5fc5f313eb-1"
+  ],
+  "usage": {
+    "pageCount": 187,
+    "instanceCount": 190,
+    "examplePages": [
+      "https://www.cnv.org/Business-Development/Building/Development-Cost-Charges",
+      "https://www.cnv.org/Business-Development/Building/Energy-Efficient-Buildings-Initiative/New-Buildings/Part-9-Buildings",
+      "https://www.cnv.org/Business-Development/Building/Land-Use-Approvals/Active-Applications/1036-Grand-Boulevard",
+      "https://www.cnv.org/Business-Development/Building/Land-Use-Approvals/Active-Applications/114-118-and-122-132-West-15th-Street",
+      "https://www.cnv.org/Business-Development/Building/Land-Use-Approvals/Active-Applications/115-East-1st-Street"
+    ]
+  },
+  "reuseGuidance": "Use for important notices and info callouts inside page content."
+}

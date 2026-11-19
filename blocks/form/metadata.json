@@ -1,0 +1,33 @@
+{
+  "variantName": "form",
+  "baseBlock": "custom",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "minimal",
+    "hasGrid": false,
+    "imagePattern": "noimg",
+    "structure": "field",
+    "purpose": "a whole form (comment / feedback form) as one block"
+  },
+  "contentPattern": {
+    "structure": "form definition reference (spreadsheet / JSON) + submit action URL"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "v_ca0f2d36e568",
+    "v_e20cd562760d"
+  ],
+  "usage": {
+    "pageCount": 22,
+    "instanceCount": 267,
+    "examplePages": [
+      "https://www.cnv.org/Business-Development/Building/Land-Use-Approvals/Active-Applications/115-East-Keith-Road",
+      "https://www.cnv.org/Business-Development/Building/Land-Use-Approvals/Active-Applications/222-East-2nd-Street",
+      "https://www.cnv.org/Business-Development/Building/Land-Use-Approvals/Active-Applications/412-East-5th-Street",
+      "https://www.cnv.org/Business-Development/Building/Land-Use-Approvals/Active-Applications/509-East-6th-Street",
+      "https://www.cnv.org/Business-Development/Building/Land-Use-Approvals/Active-Applications/541-West-Keith-Road"
+    ]
+  },
+  "reuseGuidance": "Each whole form is one form block; the catalog captured single fields (text input, textarea, radio) only, so author the full field list in the form definition."
+}

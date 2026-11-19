@@ -1,0 +1,32 @@
+{
+  "variantName": "breadcrumb",
+  "baseBlock": "custom",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "dense",
+    "hasGrid": true,
+    "imagePattern": "noimg",
+    "structure": "link + image + text",
+    "purpose": "breadcrumb trail (Home, parent pages, current page) shown at the top of most content pages"
+  },
+  "contentPattern": {
+    "structure": "one cell with the trail: a list of links (or links in a paragraph); the last, unlinked item is the current page. Left empty, the trail is built from the URL path"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "v_f73453e2f85e"
+  ],
+  "usage": {
+    "pageCount": 737,
+    "instanceCount": 809,
+    "examplePages": [
+      "https://www.cnv.org/",
+      "https://www.cnv.org/Business-Development",
+      "https://www.cnv.org/Business-Development/Bid-Notices",
+      "https://www.cnv.org/Business-Development/Bid-Notices/Fair-Wage-Policy",
+      "https://www.cnv.org/Business-Development/Bid-Notices/Sustainable-Purchasing-Policy"
+    ]
+  },
+  "reuseGuidance": "Use for the page trail at the top of content pages. If the trail should always match the URL, leave it empty and let it build from the path."
+}

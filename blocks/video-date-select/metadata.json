@@ -1,0 +1,34 @@
+{
+  "variantName": "video-date-select",
+  "baseBlock": "custom",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "moderate",
+    "hasGrid": true,
+    "imagePattern": "noimg",
+    "structure": "link + heading + text + field",
+    "purpose": "the \"Select a Date\" dropdown that opens the chosen council meeting video"
+  },
+  "contentPattern": {
+    "structure": "row 1 (optional): label text; next row: list of links, link text = meeting date, URL = video"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "v_aa65ccfe0eed",
+    "v_36f6568c55be",
+    "v_aa65ccfe0eed-1"
+  ],
+  "usage": {
+    "pageCount": 27,
+    "instanceCount": 30,
+    "examplePages": [
+      "https://www.cnv.org/City-Hall/Council-Meetings/Council-Agendas,-Minutes-and-Videos/2012-Meetings/Council-Videos",
+      "https://www.cnv.org/City-Hall/Council-Meetings/Council-Agendas,-Minutes-and-Videos/2013-Meetings/Council-Videos",
+      "https://www.cnv.org/City-Hall/Council-Meetings/Council-Agendas,-Minutes-and-Videos/2014-Meetings/Council-Videos",
+      "https://www.cnv.org/City-Hall/Council-Meetings/Council-Agendas,-Minutes-and-Videos/2015-Meetings/Council-Videos",
+      "https://www.cnv.org/City-Hall/Council-Meetings/Council-Agendas,-Minutes-and-Videos/2016-Meetings/Council-Videos"
+    ]
+  },
+  "reuseGuidance": "Use only for the council video date dropdown; the surrounding heading, text and sidebar are default content."
+}

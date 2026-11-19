@@ -1,0 +1,160 @@
+/* Table Data: source `table.table` (cnv.org). Values from migration-work/design/table-data. */
+.table-data {
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  line-height: 19.6px;
+  color: rgb(68 68 68);
+}
+
+/* source: ~36px between the table and following content (infoPanel margin +
+   next panel top); a table ending its section keeps only the section margin */
+.table-data-wrapper:not(:last-child) {
+  margin-bottom: 36px;
+}
+
+.table-data .table-data-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table-data table {
+  width: 100%;
+  border: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* mobile: source stacks every cell (header cells included) as full-width blocks */
+.table-data table,
+.table-data thead,
+.table-data tbody,
+.table-data tr,
+.table-data th,
+.table-data td {
+  display: block;
+}
+
+.table-data tr {
+  padding: 10px 0;
+}
+
+.table-data th,
+.table-data td {
+  padding: 4px 10px;
+  border: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19.6px;
+  color: rgb(68 68 68);
+  text-align: left;
+  vertical-align: top;
+}
+
+.table-data td:empty {
+  display: none;
+}
+
+/* header row */
+.table-data thead tr {
+  background-color: var(--brand-dark-blue);
+}
+
+.table-data th {
+  font-family: NovecentowideLightBold, Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  color: rgb(255 255 255);
+}
+
+/* body rows: the source alternates white and #f5f5f5 (tr.odd); header-less
+   tables stripe only with the `striped` option (council lists and
+   noZebraStripes tables stay unshaded) */
+.table-data:not(.no-header) tbody tr:nth-child(even),
+.table-data.no-header.striped tbody tr:nth-child(even) {
+  background-color: var(--light-color);
+}
+
+/* cell content: authored cells are wrapped in <p>; the source renders bare text */
+.table-data th p,
+.table-data td p {
+  margin: 0;
+  color: inherit;
+}
+
+.table-data td h4 {
+  margin: 0 0 10px;
+}
+
+.table-data td ul,
+.table-data td ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.table-data td li {
+  margin: 0 0 6px;
+}
+
+.table-data td li:last-child {
+  margin-bottom: 0;
+}
+
+/* a lone "-" cell imports as an empty list item: render it as the source dash */
+.table-data td ul:has(> li:only-child:empty) {
+  padding-left: 0;
+  list-style: none;
+}
+
+.table-data td li:only-child:empty::before {
+  content: '\00a0-';
+}
+
+/* auto-decorated button links render as plain source links, one per line */
+main .table-data p.button-container {
+  display: block;
+}
+
+main .table-data a:any-link,
+main .table-data a.button:any-link {
+  color: var(--link-color);
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+main .table-data a:hover,
+main .table-data a.button:hover {
+  text-decoration: underline;
+}
+
+.table-data img {
+  max-width: 100%;
+  vertical-align: middle;
+  height: auto;
+}
+
+/* tablet/desktop: real table layout */
+@media (width >= 768px) {
+  .table-data table {
+    display: table;
+  }
+
+  .table-data thead {
+    display: table-header-group;
+  }
+
+  .table-data tbody {
+    display: table-row-group;
+  }
+
+  .table-data tr {
+    display: table-row;
+    padding: 0;
+  }
+
+  .table-data th,
+  .table-data td,
+  .table-data td:empty {
+    display: table-cell;
+    padding: 8px 12px;
+  }
+}

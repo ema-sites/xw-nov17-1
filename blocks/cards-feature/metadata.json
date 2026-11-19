@@ -1,0 +1,32 @@
+{
+  "variantName": "cards-feature",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "minimal",
+    "hasGrid": true,
+    "imagePattern": "noimg",
+    "structure": "link",
+    "purpose": "grid of bordered link tiles, each an icon above a short label, linking to section landing pages"
+  },
+  "contentPattern": {
+    "structure": "one row per tile: icon cell (image or :icon:) + label cell (a link); the whole tile is clickable"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "v_a885bf5b148a"
+  ],
+  "usage": {
+    "pageCount": 45,
+    "instanceCount": 85,
+    "examplePages": [
+      "https://www.cnv.org/Business-Development",
+      "https://www.cnv.org/Business-Development/Building",
+      "https://www.cnv.org/Business-Development/Building/Land-Use-Approvals/Development-Permits",
+      "https://www.cnv.org/Business-Development/Economic-Development/Invest",
+      "https://www.cnv.org/Business-Development/Filming-In-the-City"
+    ]
+  },
+  "reuseGuidance": "Use for icon + label navigation tiles. For tiles with photos and summaries use cards-teaser."
+}

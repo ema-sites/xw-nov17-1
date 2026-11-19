@@ -1,0 +1,27 @@
+/* source: inline <label> (14px/22.4px Open Sans, #333) wrapping a native <select>,
+   sitting in a plain block-level div (here: the -wrapper) */
+.video-date-select {
+  display: inline;
+  color: var(--text-color);
+}
+
+.video-date-select .video-date-select-label {
+  display: inline;
+}
+
+/* source select keeps the UA look: Arial, black text, grey fill, 1px #767676 border */
+.video-date-select .video-date-select-control {
+  max-width: 100%;
+  padding: 2px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: normal;
+  color: rgb(0 0 0);
+}
+
+@media (width >= 900px) {
+  .video-date-select .video-date-select-control {
+    padding: 0;
+    font-size: 14px;
+  }
+}
