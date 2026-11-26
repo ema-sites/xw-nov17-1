@@ -86,7 +86,26 @@ var CustomImportScript = (() => {
         textCell.appendChild(document.createComment(" field:content_text "));
         nodes.forEach((n) => textCell.appendChild(n));
       }
-      cells.push([imageCell, textCell]);
+      const box = slide.querySelector(".contentWrapper");
+      const cls = box ? Array.from(box.classList) : [];
+      const position = cls.includes("topright") ? "top-right" : cls.includes("bottomright") ? "bottom-right" : cls.includes("top") || cls.includes("topleft") ? "top-left" : cls.includes("bottom") || cls.includes("bottomleft") ? "bottom-left" : "bottom-right";
+      const style = box ? box.getAttribute("style") || "" : "";
+      const width = (style.match(/(?:^|;)\s*width\s*:\s*(\d+)px/i) || [])[1] || "";
+      const alpha = (style.match(/rgba\(\s*255\s*,\s*255\s*,\s*255\s*,\s*([\d.]+)\s*\)/i) || [])[1];
+      const opacity = alpha !== void 0 ? String(Math.round(parseFloat(alpha) * 100)) : "";
+      const setting = (name, value) => {
+        const frag = document.createDocumentFragment();
+        frag.appendChild(document.createComment(` field:${name} `));
+        if (value) frag.appendChild(document.createTextNode(value));
+        return frag;
+      };
+      cells.push([
+        imageCell,
+        textCell,
+        setting("overlayPosition", position),
+        setting("overlayWidth", width),
+        setting("overlayOpacity", opacity)
+      ]);
     });
     if (!cells.length) return;
     const block = WebImporter.Blocks.createBlock(document, { name: "carousel", cells });
@@ -435,7 +454,8 @@ var CustomImportScript = (() => {
           section.append(h3, ul);
           holder.append(section);
           payload.params.fragments = payload.params.fragments || [];
-          if (!payload.params.fragments.some((f) => f.path === "/fragments/news-room-nav")) {
+          const isNewsRoomMenu = ta.getAttribute("href").toLowerCase() === "/city-hall/news-room";
+          if (isNewsRoomMenu && !payload.params.fragments.some((f) => f.path === "/fragments/news-room-nav")) {
             payload.params.fragments.push({ element: holder, path: "/fragments/news-room-nav" });
           }
           payload.params.extraMetadata = __spreadProps(__spreadValues({}, payload.params.extraMetadata || {}), { template: "news" });

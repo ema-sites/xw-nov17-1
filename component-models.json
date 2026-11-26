@@ -350,7 +350,7 @@
         "valueType": "string",
         "name": "media_imageAlt",
         "value": "",
-        "label": "Bacgkround Alt"
+        "label": "Background Alt"
       },
       {
         "component": "richtext",
@@ -358,6 +358,63 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "overlayPosition",
+        "value": "bottom-right",
+        "label": "Text box position",
+        "options": [
+          {
+            "name": "Bottom right",
+            "value": "bottom-right"
+          },
+          {
+            "name": "Bottom left",
+            "value": "bottom-left"
+          },
+          {
+            "name": "Top left",
+            "value": "top-left"
+          },
+          {
+            "name": "Top right",
+            "value": "top-right"
+          }
+        ]
+      },
+      {
+        "component": "number",
+        "valueType": "number",
+        "name": "overlayWidth",
+        "value": 600,
+        "label": "Text box width in pixels (desktop; default 600)"
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "overlayOpacity",
+        "value": "75",
+        "label": "Text box background opacity",
+        "options": [
+          {
+            "name": "75%",
+            "value": "75"
+          },
+          {
+            "name": "85%",
+            "value": "85"
+          },
+          {
+            "name": "100% (solid white)",
+            "value": "100"
+          },
+          {
+            "name": "50%",
+            "value": "50"
+          }
+        ]
       }
     ]
   },

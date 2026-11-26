@@ -6,7 +6,8 @@
  * Source: https://www.cnv.org/ (homepage)
  * Selector: #home-banner-background (wraps #home-top-banner .banners)
  * Model: carousel container of carousel-item { media_image (reference), media_imageAlt (collapsed),
- *   content_text (richtext) }. One row per slide: [image cell, text cell]
+ *   content_text (richtext), overlayPosition, overlayWidth, overlayOpacity }.
+ *   One row per slide: [image cell, text cell, position, width, opacity]
  *   (text: title as heading, description, call-to-action link at the bottom).
  *
  * Source slide: #banners > div > a[href] > img + div.banner-overlay > .content-width
@@ -63,7 +64,26 @@ export default function parse(element, { document }) {
       nodes.forEach((n) => textCell.appendChild(n));
     }
 
-    cells.push([imageCell, textCell]);
+    // text box settings (source .contentWrapper): position class, inline width and background alpha
+    const box = slide.querySelector('.contentWrapper');
+    const cls = box ? Array.from(box.classList) : [];
+    const position = cls.includes('topright') ? 'top-right'
+      : cls.includes('bottomright') ? 'bottom-right'
+        : (cls.includes('top') || cls.includes('topleft')) ? 'top-left'
+          : (cls.includes('bottom') || cls.includes('bottomleft')) ? 'bottom-left' : 'bottom-right';
+    const style = box ? (box.getAttribute('style') || '') : '';
+    const width = (style.match(/(?:^|;)\s*width\s*:\s*(\d+)px/i) || [])[1] || '';
+    const alpha = (style.match(/rgba\(\s*255\s*,\s*255\s*,\s*255\s*,\s*([\d.]+)\s*\)/i) || [])[1];
+    const opacity = alpha !== undefined ? String(Math.round(parseFloat(alpha) * 100)) : '';
+    const setting = (name, value) => {
+      const frag = document.createDocumentFragment();
+      frag.appendChild(document.createComment(` field:${name} `));
+      if (value) frag.appendChild(document.createTextNode(value));
+      return frag;
+    };
+
+    cells.push([imageCell, textCell, setting('overlayPosition', position),
+      setting('overlayWidth', width), setting('overlayOpacity', opacity)]);
   });
 
   // No slides: leave the content as page text rather than an empty block.

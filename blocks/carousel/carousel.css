@@ -27,6 +27,7 @@ main > .section > .carousel-wrapper {
 .carousel .carousel-slide {
   grid-area: 1 / 1;
   display: grid;
+  align-content: start; /* shorter slides keep their text box right under the image (small screens) */
   position: relative;
   opacity: 0;
   visibility: hidden;
@@ -60,65 +61,93 @@ main > .section > .carousel-wrapper {
   object-fit: fill;
 }
 
-/* caption box sits bottom-right over the image; slides without text show the bare image */
+/* text box frame: the centered 1140px content width over the image (source .banner-overlay
+   .content-width); the box inside is positioned per slide (Carousel Slide "Text box" fields) */
 .carousel .carousel-slide-content {
-  place-self: end end;
+  position: relative;
   z-index: 1;
+  box-sizing: border-box;
+  justify-self: center;
+  width: min(1140px, 100%);
+  height: 100%;
   margin: 0;
   padding: 0;
 }
 
-/* small screens: bottom-left, clear of the top-right pager */
-.carousel .carousel-slide-content.carousel-slide-caption {
+/* source .contentWrapper: 35px padding, white at the slide's opacity, 600px unless set */
+.carousel .carousel-slide-overlay {
+  position: absolute;
   box-sizing: border-box;
-  justify-self: start;
-  max-width: 75%;
-  padding: 8px 10px;
+  width: var(--overlay-width, 600px);
+  max-width: 100%;
+  padding: 35px;
+  background-color: rgb(255 255 255 / var(--overlay-opacity, 75%));
   color: rgb(0 0 0);
-  background-color: rgb(255 255 255 / 80%);
-}
-
-.carousel .carousel-slide-content h1,
-.carousel .carousel-slide-content h2,
-.carousel .carousel-slide-content h3,
-.carousel .carousel-slide-content h4,
-.carousel .carousel-slide-content h5,
-.carousel .carousel-slide-content h6 {
-  margin: 0;
-  font-family: var(--heading-font-family);
   font-size: 14px;
+}
+
+.carousel .carousel-slide-overlay-top-left {
+  top: 0;
+  left: 0;
+}
+
+.carousel .carousel-slide-overlay-top-right {
+  top: 0;
+  right: 0;
+}
+
+.carousel .carousel-slide-overlay-bottom-left {
+  bottom: 0;
+  left: 0;
+}
+
+.carousel .carousel-slide-overlay-bottom-right {
+  right: 0;
+  bottom: 0;
+}
+
+/* title (source .title): Novecento Wide, uppercase */
+.carousel .carousel-slide-overlay :is(h1, h2, h3, h4, h5, h6) {
+  margin: 0 0 6px;
+  padding: 0;
+  font-family: 'Novecento Wide', helvetica, arial, sans-serif;
+  font-size: 32px;
   font-weight: 400;
-  line-height: 17px;
+  line-height: 35px;
+  text-transform: uppercase;
   color: rgb(0 0 0);
 }
 
-.carousel .carousel-slide-content p {
-  margin: 4px 0 0;
-  font-size: 12px;
-  line-height: 15px;
+/* subtitle (source .subtitle) */
+.carousel .carousel-slide-overlay p {
+  margin: 0 0 10px;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 22px;
   color: rgb(0 0 0);
 }
 
 /* the slide link ("Learn More") is not visible on the source: hide its text, stretch it over the slide */
-.carousel .carousel-slide-content p.carousel-slide-link-wrap {
+.carousel .carousel-slide > p.carousel-slide-link-wrap {
+  grid-area: 1 / 1;
   display: block;
   height: 0;
   margin: 0;
   overflow: hidden;
 }
 
-.carousel .carousel-slide-content a.carousel-slide-link:any-link {
+.carousel a.carousel-slide-link:any-link {
   outline: none;
 }
 
-.carousel .carousel-slide-content a.carousel-slide-link::after {
+.carousel a.carousel-slide-link::after {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 2;
 }
 
-.carousel .carousel-slide-content a.carousel-slide-link:focus-visible::after {
+.carousel a.carousel-slide-link:focus-visible::after {
   outline: 2px solid var(--link-color);
   outline-offset: -4px;
 }
@@ -164,51 +193,49 @@ main > .section > .carousel-wrapper {
   outline-offset: 1px;
 }
 
-@media (width >= 600px) {
-  .carousel .carousel-slide-content.carousel-slide-caption {
-    justify-self: end;
-    max-width: 380px;
-    padding: 20px;
-  }
-
-  .carousel .carousel-slide-content h1,
-  .carousel .carousel-slide-content h2,
-  .carousel .carousel-slide-content h3,
-  .carousel .carousel-slide-content h4,
-  .carousel .carousel-slide-content h5,
-  .carousel .carousel-slide-content h6 {
-    font-size: 22px;
-    line-height: 26px;
-  }
-
-  .carousel .carousel-slide-content p {
-    margin-top: 8px;
-    font-size: 15px;
-    line-height: 20px;
+/* source breakpoints (max-width 830 / 640 / 560 / 480) */
+@media (width <= 830px) {
+  .carousel .carousel-slide-overlay {
+    width: 100%;
+    padding: 20px 15px;
   }
 }
 
-/* source caption box at full banner size */
-@media (width >= 1200px) {
-  .carousel .carousel-slide-content.carousel-slide-caption {
-    min-width: 460px;
-    max-width: 600px;
-    padding: 35px;
+/* small screens: the text box sits below the image on a light grey background */
+@media (width <= 640px) {
+  .carousel .carousel-slide > .carousel-slide-content {
+    grid-area: 2 / 1;
+    position: static;
+    width: 100%;
+    height: auto;
   }
 
-  .carousel .carousel-slide-content h1,
-  .carousel .carousel-slide-content h2,
-  .carousel .carousel-slide-content h3,
-  .carousel .carousel-slide-content h4,
-  .carousel .carousel-slide-content h5,
-  .carousel .carousel-slide-content h6 {
-    font-size: 32px;
-    line-height: 35px;
+  .carousel .carousel-slide-overlay {
+    position: static;
+    background-color: rgb(243 242 242);
+  }
+}
+
+@media (width <= 560px) {
+  .carousel .carousel-slide-overlay :is(h1, h2, h3, h4, h5, h6) {
+    font-size: 26px;
+    line-height: 1.2;
   }
 
-  .carousel .carousel-slide-content p {
-    margin-top: 10px;
-    font-size: 20px;
-    line-height: 26px;
+  .carousel .carousel-slide-overlay p {
+    font-size: 18px;
+    line-height: 1.2;
+  }
+}
+
+@media (width <= 480px) {
+  .carousel .carousel-slide-overlay {
+    padding: 10px 15px;
+    font-size: 12px;
+    line-height: 14px;
+  }
+
+  .carousel .carousel-slide-overlay :is(h1, h2, h3, h4, h5, h6) {
+    margin-bottom: 5px;
   }
 }

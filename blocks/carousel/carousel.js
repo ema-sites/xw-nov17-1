@@ -63,37 +63,64 @@ function bindEvents(block) {
   start();
 }
 
+const POSITIONS = ['bottom-right', 'bottom-left', 'top-left', 'top-right'];
+
+/**
+ * Per-slide text box settings (Carousel Slide fields after the image and text):
+ * [position], [width in px], [background opacity %]. Defaults match the source (600px, 75%).
+ */
+function readOverlaySettings(cells) {
+  const [position, width, opacity] = cells.map((c) => c.textContent.trim().toLowerCase());
+  return {
+    position: POSITIONS.includes(position) ? position : 'bottom-right',
+    width: parseInt(width, 10) > 0 ? parseInt(width, 10) : 600,
+    opacity: Math.min(100, Math.max(0, parseInt(opacity, 10) || 75)),
+  };
+}
+
 function createSlide(row, slideIndex, carouselId) {
   const slide = document.createElement('li');
   slide.dataset.slideIndex = slideIndex;
   slide.setAttribute('id', `carousel-${carouselId}-slide-${slideIndex}`);
   slide.classList.add('carousel-slide');
 
-  row.querySelectorAll(':scope > div').forEach((column, colIdx) => {
-    column.classList.add(`carousel-slide-${colIdx === 0 ? 'image' : 'content'}`);
-    slide.append(column);
-  });
+  const [imageCell, contentCell, ...settingCells] = row.querySelectorAll(':scope > div');
+  const settings = readOverlaySettings(settingCells);
+  settingCells.forEach((c) => c.remove());
+  if (imageCell) {
+    imageCell.classList.add('carousel-slide-image');
+    slide.append(imageCell);
+  }
 
-  const content = slide.querySelector('.carousel-slide-content');
-  if (content) {
+  if (contentCell) {
+    // the content cell becomes the 1140px frame that positions the text box (source .content-width)
+    contentCell.classList.add('carousel-slide-content');
+    slide.append(contentCell);
+
     // the slide's link target ("Learn More") makes the whole slide clickable
-    const links = [...content.querySelectorAll('a[href]')];
+    const links = [...contentCell.querySelectorAll('a[href]')];
     const link = links[links.length - 1];
-    let linkWrap;
     if (link) {
       link.classList.remove('button', 'primary', 'secondary');
       link.classList.add('carousel-slide-link');
-      linkWrap = link.closest('p');
+      const linkWrap = link.closest('p');
       if (linkWrap && linkWrap.textContent.trim() === link.textContent.trim()) {
         linkWrap.classList.remove('button-container');
         linkWrap.classList.add('carousel-slide-link-wrap');
-      } else {
-        linkWrap = null;
+        slide.append(linkWrap); // outside the text box, so it can cover the whole slide
       }
     }
-    const hasCaption = content.querySelector('h1, h2, h3, h4, h5, h6')
-      || [...content.querySelectorAll('p')].some((p) => p !== linkWrap && p.textContent.trim());
-    if (hasCaption) content.classList.add('carousel-slide-caption');
+
+    // the remaining copy goes in the text box (source .contentWrapper); none: no box
+    const box = document.createElement('div');
+    box.className = `carousel-slide-overlay carousel-slide-overlay-${settings.position}`;
+    box.style.setProperty('--overlay-width', `${settings.width}px`);
+    box.style.setProperty('--overlay-opacity', `${settings.opacity}%`);
+    box.append(...contentCell.childNodes);
+    if (box.textContent.trim()) {
+      contentCell.append(box);
+      contentCell.classList.add('carousel-slide-caption');
+    }
   }
 
   const labeledBy = slide.querySelector('h1, h2, h3, h4, h5, h6');
