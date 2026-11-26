@@ -13,6 +13,7 @@
  * Older content (a link to a /forms/*.json definition) has no fields to render: the block hides.
  */
 import { toClassName } from '../../scripts/aem.js';
+import { moveInstrumentation } from '../../scripts/scripts.js';
 
 const INPUT_TYPES = ['text', 'textarea', 'email', 'tel', 'date', 'number', 'select', 'radio', 'checkbox'];
 const DEFAULT_AUTOCOMPLETE = { email: 'email', tel: 'tel' };
@@ -206,7 +207,12 @@ export default function decorate(block) {
   const formId = `form-${formCount}`;
   const used = new Set();
   const form = el('form', { className: 'form-body', id: formId, method: 'post' });
-  itemRows.forEach((row) => form.append(buildField(readField(row), formId, used)));
+  itemRows.forEach((row) => {
+    const node = buildField(readField(row), formId, used);
+    // keep the Universal Editor markers so each field can be selected on the page
+    moveInstrumentation(row, node);
+    form.append(node);
+  });
   const button = el('button', { type: 'submit', className: 'form-submit' }, submitLabel);
   const formError = el('p', { className: 'form-submit-error', role: 'alert' });
   form.append(el('div', { className: 'form-actions' }, button), formError);
