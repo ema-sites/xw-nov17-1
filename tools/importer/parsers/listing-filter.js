@@ -31,7 +31,46 @@ function paramName(select) {
   return name || 'category';
 }
 
-export default function parse(element, { document }) {
+// News Room search pages: the source search is script-driven (results load by AJAX), so it becomes
+// a news-search block, which searches the news query index. The scraped results are dropped.
+const NEWS_SEARCH_PAGES = {
+  '/city-hall/news-room': '',
+  '/city-hall/news-room/news-releases': '/city-hall/news-room/news-releases',
+};
+
+function pagePath(url, params) {
+  try {
+    return new URL((params && params.originalURL) || url, 'https://www.cnv.org').pathname.replace(/\/+$/, '').toLowerCase();
+  } catch (e) {
+    return '';
+  }
+}
+
+function field(document, name, value) {
+  const frag = document.createDocumentFragment();
+  frag.appendChild(document.createComment(` field:${name} `));
+  frag.appendChild(document.createTextNode(String(value)));
+  return frag;
+}
+
+function newsSearch(element, document, folder) {
+  // the instance selector can match the inner form row: replace the whole filter header (with its
+  // help line, which the block renders) and drop the scraped AJAX results anywhere on the page
+  const header = element.closest('.filterHeader') || element;
+  document.querySelectorAll('#filterResults').forEach((n) => n.remove());
+  const block = WebImporter.Blocks.createBlock(document, {
+    name: 'news-search',
+    cells: [[folder ? field(document, 'folder', folder) : ''], [field(document, 'pageSize', 10)]],
+  });
+  header.replaceWith(block);
+}
+
+export default function parse(element, { document, url, params }) {
+  const path = pagePath(url, params);
+  if (Object.prototype.hasOwnProperty.call(NEWS_SEARCH_PAGES, path)) {
+    newsSearch(element, document, NEWS_SEARCH_PAGES[path]);
+    return;
+  }
   const selects = Array.from(element.querySelectorAll('select'));
   const select = selects.find((s) => !/display\s*:\s*none/i.test(s.getAttribute('style') || '')) || selects[0];
 

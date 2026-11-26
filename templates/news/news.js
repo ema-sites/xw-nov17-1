@@ -53,9 +53,10 @@ async function buildAside(section) {
  * @param {Element} main the decorated main element
  */
 export default function decorate(main) {
-  // the first section that isn't the breadcrumb holds the page content
-  const section = [...main.querySelectorAll(':scope > .section')]
-    .find((s) => !s.querySelector('.breadcrumb'));
+  // the page content is the section with the page heading (not the banner or breadcrumb sections)
+  const sections = [...main.querySelectorAll(':scope > .section')];
+  const section = sections.find((s) => s.querySelector('h1'))
+    || sections.find((s) => !s.querySelector('.breadcrumb') && !s.matches(':has(> div > p > picture:only-child)'));
   if (!section) return;
   section.classList.add('news-layout');
   buildAside(section);

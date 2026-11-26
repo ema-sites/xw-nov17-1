@@ -629,6 +629,24 @@
     ]
   },
   {
+    "id": "news-search",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "folder",
+        "label": "Only articles under this path (e.g. /city-hall/news-room/news-releases; empty = all News Room articles)"
+      },
+      {
+        "component": "number",
+        "valueType": "number",
+        "name": "pageSize",
+        "value": 10,
+        "label": "Results per page"
+      }
+    ]
+  },
+  {
     "id": "notice",
     "fields": [
       {

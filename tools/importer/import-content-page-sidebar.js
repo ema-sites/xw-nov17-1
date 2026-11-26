@@ -4849,7 +4849,8 @@ const PAGE_TEMPLATE = {
         ".content-section > div.featureCTAs",
         ".content-section > div.featureListings",
         "[id$='_pnlFeatureListingInfo']",
-        ".infoPanel div.featureListingsThreeColumn"
+        ".infoPanel div.featureListingsThreeColumn",
+        ".content-section > div.featureListingsThreeColumn"
       ],
       "pageInstances": {
         "https://www.cnv.org/Business-Development": [

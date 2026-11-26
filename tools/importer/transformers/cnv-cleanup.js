@@ -168,7 +168,10 @@ export default function transform(hookName, element, payload) {
         section.append(h3, ul);
         holder.append(section);
         payload.params.fragments = payload.params.fragments || [];
-        if (!payload.params.fragments.some((f) => f.path === '/fragments/news-room-nav')) {
+        // only a page showing the News Room menu itself writes the shared fragment: some News Room
+        // pages (e.g. News Releases) show the parent Government & City Hall menu on the source
+        const isNewsRoomMenu = ta.getAttribute('href').toLowerCase() === '/city-hall/news-room';
+        if (isNewsRoomMenu && !payload.params.fragments.some((f) => f.path === '/fragments/news-room-nav')) {
           payload.params.fragments.push({ element: holder, path: '/fragments/news-room-nav' });
         }
         payload.params.extraMetadata = { ...(payload.params.extraMetadata || {}), template: 'news' };

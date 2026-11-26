@@ -5,33 +5,9 @@
  *
  * Block rows: [heading], [number of articles].
  */
-const INDEX = '/news-index.json';
+import fetchNewsArticles from '../../scripts/news-index.js';
+
 const DEFAULT_LIMIT = 4;
-// article paths carry their publication date: /<list>/<yyyy>/<m>/<d>/<slug>
-const DATED_PATH = /\/(\d{4})\/(\d{1,2})\/(\d{1,2})\/[^/]+$/;
-
-async function fetchIndex() {
-  const urls = [`${INDEX}?limit=1000`];
-  // the local preview serves a stand-in index under /content (the real one exists only on EDS)
-  if (window.location.hostname === 'localhost') urls.unshift(`/content${INDEX}`);
-  // eslint-disable-next-line no-restricted-syntax
-  for (const url of urls) {
-    try {
-      // eslint-disable-next-line no-await-in-loop
-      const resp = await fetch(url);
-      // eslint-disable-next-line no-await-in-loop
-      if (resp.ok) return (await resp.json()).data || [];
-    } catch (e) {
-      // try the next location
-    }
-  }
-  return [];
-}
-
-function articleDate(path) {
-  const m = path.match(DATED_PATH);
-  return m ? Date.UTC(+m[1], +m[2] - 1, +m[3]) : NaN;
-}
 
 function link(href, text) {
   const a = document.createElement('a');
@@ -52,11 +28,7 @@ export default async function decorate(block) {
     block.append(h2);
   }
 
-  const articles = (await fetchIndex())
-    .map((item) => ({ ...item, date: articleDate(item.path || '') }))
-    .filter((item) => item.title && !Number.isNaN(item.date))
-    .sort((a, b) => (b.date - a.date) || ((+b.lastModified || 0) - (+a.lastModified || 0)))
-    .slice(0, limit);
+  const articles = (await fetchNewsArticles()).slice(0, limit);
 
   if (!articles.length) {
     block.classList.add('news-feed-empty');
