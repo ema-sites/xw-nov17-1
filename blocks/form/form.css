@@ -1,218 +1,198 @@
 /*
- * Form block: values from the source Sitecore form (cnv.org .mvc-form), measured at 1440 / 375.
- * Labels sit above the fields, fields are fixed-width boxes with a 1px #444 border,
- * radios stack one per row and the submit is a small uppercase blue button.
+ * Form block: values from the source Sitecore form (cnv.org .mvc-form): labels above the fields in
+ * body text, 562px fields with a 1px #444 border, a small uppercase blue submit button.
  */
 
-/* missing or broken form definition: render nothing */
+/* older content without fields: render nothing */
 .form-wrapper[hidden],
-.form[hidden] {
+.form:empty {
   display: none;
 }
 
-.form form {
-  font-size: var(--body-font-size-m);
+.form .form-body {
+  font-size: 14px;
   line-height: 22.4px;
-  color: var(--text-color);
+  color: rgb(51 51 51);
 }
 
-.form .field-wrapper {
-  display: block;
-  margin: 0;
+.form .form-field {
+  margin: 0 0 15px;
 }
 
-.form fieldset {
-  display: block;
-  min-width: 0;
-  margin: 0;
-  border: none;
-  padding: 0;
-}
-
-/* labels: plain body text above the field */
-.form label {
+.form .form-field > label,
+.form .form-choices > legend {
   display: block;
   margin: 0;
   padding: 0;
-  font-size: var(--body-font-size-m);
+  font-size: 14px;
   font-weight: 400;
   line-height: 22.4px;
-  color: var(--text-color);
+  color: rgb(51 51 51);
 }
 
-/* radio/checkbox group label */
-.form fieldset > legend {
-  display: block;
-  margin: 15px 0 10px;
-  padding: 0;
-  font-size: var(--body-font-size-m);
-  font-weight: 400;
-  line-height: 22.4px;
-  color: var(--text-color);
+.form .form-required {
+  color: rgb(176 0 32);
 }
 
 /* text-like fields */
-.form input,
-.form select,
-.form textarea {
+.form .form-field input:not([type='radio'], [type='checkbox']),
+.form .form-field select,
+.form .form-field textarea {
   box-sizing: border-box;
   display: block;
-  width: 222px;
-  max-width: 100%;
-  margin: 3px 0 15px;
+  width: 100%;
+  max-width: 562px;
+  min-height: 40px;
+  margin: 3px 0 0;
   padding: 8px 10px;
   border: 1px solid rgb(68 68 68);
   border-radius: 0;
   background-color: #fff;
   color: #000;
   font-family: inherit;
-  font-size: 16px;
+  font-size: 16px; /* 16px keeps iOS from zooming on focus */
   line-height: 22px;
 }
 
-.form textarea {
-  width: 237px;
-  height: 106px;
-  resize: both;
+.form .form-field input[type='date'] {
+  max-width: 242px;
 }
 
-/* radios and checkboxes: control then label on one row, one option per row */
-.form .field-wrapper.selection-wrapper {
-  display: flex;
-  align-items: flex-start;
-  min-height: 40px;
-  margin: 3px 0 5px;
+.form .form-field textarea {
+  min-height: 106px;
+  resize: vertical;
 }
 
-.form .selection-wrapper input {
-  flex: 0 0 auto;
-  width: 13px;
-  height: 13px;
-  margin: 6px 3px 0 5px;
+.form .form-field :is(input, select, textarea):focus-visible {
+  outline: 2px solid rgb(67 142 206);
+  outline-offset: 1px;
+}
+
+/* radio buttons / checkboxes: one option per row */
+.form .form-choices {
+  min-width: 0;
+  margin: 0;
   padding: 0;
   border: 0;
 }
 
-.form .selection-wrapper label {
-  margin: 0;
+.form .form-choices > legend {
+  margin-bottom: 4px;
 }
 
-/* section heading inside a form: uppercase title followed by a rule */
-.form .heading-wrapper h2,
-.form .heading-wrapper h3 {
+.form .form-choice {
   display: flex;
-  margin: 20px 0 5px;
-  padding: 0 0 20px;
-  font-family: var(--heading-font-family);
-  font-size: 18px;
-  font-weight: 700;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 3px 0;
+  font-size: 14px;
+  line-height: 22.4px;
+  cursor: pointer;
+}
+
+.form .form-field .form-choice input {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin: 3px 0 0;
+  accent-color: rgb(67 142 206);
+}
+
+.form .form-heading {
+  margin: 25px 0 15px;
+  font-size: 22px;
+  line-height: 26px;
+}
+
+.form .form-note,
+.form .form-help {
+  margin: 4px 0 0;
+  font-size: 13px;
   line-height: 20px;
-  color: var(--heading-minor-color);
-  text-transform: uppercase;
+  color: rgb(85 85 85);
 }
 
-.form .heading-wrapper h2::after,
-.form .heading-wrapper h3::after {
-  content: '';
-  flex: 1 1 auto;
-  height: 1px;
-  margin: 0 0 0 10px;
-  background-color: #000;
-  transform: translateY(10px);
+/* errors: only after the user has interacted (:user-invalid, mirrored by .form-field-invalid);
+   border change plus message text, so the state is not conveyed by colour alone */
+.form .form-error {
+  margin: 4px 0 0;
+  font-size: 13px;
+  line-height: 20px;
+  color: rgb(176 0 32);
 }
 
-.form .plaintext-wrapper p {
-  margin: 0 0 14px;
+.form .form-error:empty {
+  display: none;
+}
+
+.form .form-error::before {
+  content: '! ';
+  font-weight: 700;
+}
+
+.form .form-field :is(input, select, textarea):user-invalid,
+.form .form-field-invalid :is(input, select, textarea):not([type='radio'], [type='checkbox']) {
+  border: 2px solid rgb(176 0 32);
+  padding: 7px 9px;
 }
 
 /* submit */
-main .form button.button {
-  display: inline-block;
-  width: auto;
-  margin: 3px 0 15px;
-  padding: 8px 10px;
+.form .form-actions {
+  margin: 25px 0 15px;
+}
+
+.form .form-submit {
+  margin: 0;
+  padding: 9px 12px;
   border: 1px solid rgb(68 68 68);
   border-radius: 0;
-  background-color: var(--link-color);
+  background-color: rgb(67 142 206);
   color: #fff;
-  font-family: NovecentowideLightBold, Helvetica, Arial, sans-serif;
+  font-family: var(--heading-font-family, inherit);
   font-size: 13px;
-  font-weight: 400;
+  font-weight: 700;
   line-height: 12px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   cursor: pointer;
 }
 
-main .form button.button:hover,
-main .form button.button:focus {
-  background-color: var(--light-color);
-  color: var(--link-color);
+.form .form-submit:hover,
+.form .form-submit:focus-visible {
+  background-color: rgb(51 107 152);
 }
 
-main .form button.button:disabled,
-main .form button.button:disabled:hover {
-  background-color: var(--light-color);
-  color: var(--text-color);
-  cursor: unset;
+.form .form-submit:disabled {
+  opacity: 0.6;
+  cursor: progress;
 }
 
-/* toggle (no source equivalent; kept functional) */
-.form .toggle-wrapper .switch {
-  position: relative;
-  display: inline-block;
-  width: 52px;
-  height: 28px;
-}
-
-.form .toggle-wrapper input {
-  opacity: 0;
-  width: 52px;
-  height: 28px;
+.form .form-submit-error {
   margin: 0;
+  color: rgb(176 0 32);
 }
 
-.form .toggle-wrapper .slider {
-  position: absolute;
-  cursor: pointer;
-  inset: 0;
-  border-radius: 28px;
-  background-color: var(--dark-color);
-  transition: background-color 0.2s;
+.form .form-submit-error:empty {
+  display: none;
 }
 
-.form .toggle-wrapper .slider::before {
-  content: '';
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  top: 2px;
-  left: 2px;
-  border-radius: 50%;
-  background-color: var(--background-color);
-  transition: transform 0.2s;
+/* after submission */
+.form .form-success {
+  padding: 15px 20px;
+  border-left: 4px solid rgb(67 142 206);
+  background: rgb(240 246 252);
+  font-size: 16px;
+  line-height: 24px;
 }
 
-.form .toggle-wrapper input:checked + .slider {
-  background-color: var(--link-color);
+.form .form-success:focus {
+  outline: none;
 }
 
-.form .toggle-wrapper input:focus + .slider {
-  outline: 2px solid var(--link-color);
-  outline-offset: 2px;
+.form .form-success > :first-child {
+  margin-top: 0;
 }
 
-.form .toggle-wrapper input:checked + .slider::before {
-  transform: translateX(24px);
-}
-
-@media (width >= 900px) {
-  .form input,
-  .form select,
-  .form textarea {
-    width: 562px;
-  }
-
-  .form input[type='tel'] {
-    width: 242px;
-  }
+.form .form-success > :last-child {
+  margin-bottom: 0;
 }

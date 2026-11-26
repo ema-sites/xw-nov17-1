@@ -114,6 +114,12 @@
     ]
   },
   {
+    "id": "form",
+    "components": [
+      "form-field"
+    ]
+  },
+  {
     "id": "table-data",
     "components": [
       "table-data-row"

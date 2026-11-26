@@ -501,15 +501,175 @@
     "id": "form",
     "fields": [
       {
-        "component": "aem-content",
-        "name": "reference",
-        "label": "Form"
+        "component": "text",
+        "valueType": "string",
+        "name": "submitLabel",
+        "value": "Submit",
+        "label": "Submit button label"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "successMessage",
+        "value": "",
+        "label": "Message shown after a successful submission"
       },
       {
         "component": "text",
+        "valueType": "string",
         "name": "action",
-        "label": "Action URL",
-        "valueType": "string"
+        "value": "",
+        "label": "Submit to URL (optional; leave empty to only validate and show the message)"
+      }
+    ]
+  },
+  {
+    "id": "form-field",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label (or heading / note text)"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "name",
+        "label": "Field name (sent with the data; generated from the label when empty)"
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "type",
+        "value": "text",
+        "label": "Type",
+        "options": [
+          {
+            "name": "Text",
+            "value": "text"
+          },
+          {
+            "name": "Long text",
+            "value": "textarea"
+          },
+          {
+            "name": "Email",
+            "value": "email"
+          },
+          {
+            "name": "Phone",
+            "value": "tel"
+          },
+          {
+            "name": "Date",
+            "value": "date"
+          },
+          {
+            "name": "Number",
+            "value": "number"
+          },
+          {
+            "name": "Dropdown",
+            "value": "select"
+          },
+          {
+            "name": "Radio buttons",
+            "value": "radio"
+          },
+          {
+            "name": "Checkbox(es)",
+            "value": "checkbox"
+          },
+          {
+            "name": "Section heading (no input)",
+            "value": "heading"
+          },
+          {
+            "name": "Note (no input)",
+            "value": "note"
+          }
+        ]
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "required",
+        "label": "Required"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "options",
+        "value": "",
+        "label": "Options for dropdown, radio buttons or checkboxes (a bulleted list, one option per item)"
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "autocomplete",
+        "value": "",
+        "label": "Autofill hint",
+        "options": [
+          {
+            "name": "None / automatic",
+            "value": ""
+          },
+          {
+            "name": "Full name",
+            "value": "name"
+          },
+          {
+            "name": "Street address (line 1)",
+            "value": "address-line1"
+          },
+          {
+            "name": "Address line 2 (suite, unit)",
+            "value": "address-line2"
+          },
+          {
+            "name": "City",
+            "value": "address-level2"
+          },
+          {
+            "name": "Province / state",
+            "value": "address-level1"
+          },
+          {
+            "name": "Postal code",
+            "value": "postal-code"
+          },
+          {
+            "name": "Email",
+            "value": "email"
+          },
+          {
+            "name": "Phone",
+            "value": "tel"
+          },
+          {
+            "name": "Organization",
+            "value": "organization"
+          },
+          {
+            "name": "Off",
+            "value": "off"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "help",
+        "value": "",
+        "label": "Help text (shown under the field)"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "errorMessage",
+        "value": "",
+        "label": "Error message when the field is missing (default: \"<label> is required.\")"
       }
     ]
   },
