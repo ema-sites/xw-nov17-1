@@ -148,6 +148,27 @@ export function decorateMain(main) {
   a11yLinks(main);
 }
 
+const TEMPLATES = ['news'];
+
+/**
+ * Loads the page template named in the `template` metadata (templates/<name>/<name>.{js,css}).
+ * @param {Element} main The main element
+ */
+async function loadTemplate(main) {
+  const name = getMetadata('template').toLowerCase().trim();
+  if (!TEMPLATES.includes(name)) return;
+  try {
+    const [mod] = await Promise.all([
+      import(`${window.hlx.codeBasePath}/templates/${name}/${name}.js`),
+      loadCSS(`${window.hlx.codeBasePath}/templates/${name}/${name}.css`),
+    ]);
+    if (mod.default) await mod.default(main);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(`Template ${name} failed to load`, error);
+  }
+}
+
 /**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
@@ -161,6 +182,7 @@ async function loadEager(doc) {
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
+    await loadTemplate(main);
     document.body.classList.add('appear');
     await loadSection(main.querySelector('.section'), waitForFirstImage);
   }

@@ -1,0 +1,87 @@
+/* News template: section menu (left) + 772px content column, values from the source cnv.org News Room pages */
+main > .section.news-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+main > .section.news-layout > div {
+  width: 100%;
+}
+
+.news-aside {
+  order: 2;
+  margin: 30px 0 0;
+  padding: 0 var(--content-gutter, 15px);
+}
+
+.news-aside-title {
+  margin: 0 0 14px;
+  padding: 0 0 12px;
+  border-bottom: 2px solid #00467f;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 24px;
+  color: #00467f;
+}
+
+.news-aside-title a:any-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.news-aside-links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.news-aside-links li {
+  margin: 0;
+  padding: 0;
+}
+
+.news-aside-links a:any-link {
+  display: flex;
+  align-items: center;
+  min-height: 35px;
+  border-bottom: 1px solid #d6d7da;
+  font-size: 14px;
+  line-height: 21px;
+  color: #333;
+  text-decoration: none;
+}
+
+.news-aside-links a:hover,
+.news-aside-links a[aria-current='page'] {
+  color: #00467f;
+}
+
+@media (width >= 900px) {
+  main > .section.news-layout {
+    display: grid;
+    grid-template-columns: 306px minmax(0, 772px);
+    column-gap: 60px;
+    align-items: start;
+    max-width: 1140px;
+    margin-inline: auto;
+    padding-inline: var(--content-gutter, 15px);
+    box-sizing: content-box;
+  }
+
+  main > .section.news-layout > div {
+    grid-column: 2;
+    max-width: none;
+    margin-inline: 0;
+    padding-inline: 0;
+  }
+
+  .news-aside {
+    order: 0;
+    grid-column: 1;
+    grid-row: 1 / span 20;
+    margin: 0;
+    padding: 0 20px 20px 0;
+    border-right: 1px solid #d6d7da;
+    align-self: stretch;
+  }
+}

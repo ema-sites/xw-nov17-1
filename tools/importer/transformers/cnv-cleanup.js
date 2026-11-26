@@ -128,6 +128,53 @@ export default function transform(hookName, element, payload) {
       headerContainer.remove();
     }
 
+    // News Room pages: keep the section menu as the shared /fragments/news-room-nav fragment
+    // (heading linking to the News Room + top-level links) and mark the page "template: news",
+    // which loads the menu into a sidebar (templates/news). Other sections keep it removed.
+    const pageUrls = getPageUrl(payload, element);
+    const isNewsRoom = pageUrls.some((u) => {
+      try { return /^\/city-hall\/news-room(\/|$)/i.test(new URL(u, 'https://www.cnv.org').pathname); } catch (e) { return false; }
+    });
+    const sideNav = root.querySelector('#left-side-navigation');
+    if (isNewsRoom && sideNav && payload.params) {
+      const toPath = (href) => {
+        try {
+          const u = new URL(href, 'https://www.cnv.org/');
+          const p = u.pathname.replace(/\/+$/, '');
+          const fu = typeof WebImporter !== 'undefined' && WebImporter.FileUtils && WebImporter.FileUtils.sanitizePath;
+          return p ? (fu ? fu(p) : p.toLowerCase()) : '/';
+        } catch (e) { return href; }
+      };
+      const titleLink = sideNav.querySelector('.navigation-title a[href]');
+      const items = [...sideNav.querySelectorAll('.side-nav > ul > li > a[href], ul > li > a[href]')]
+        .filter((a, i, all) => all.indexOf(a) === i && !a.closest('li li'));
+      if (titleLink && items.length) {
+        const holder = document.createElement('div');
+        const section = document.createElement('div');
+        const h3 = document.createElement('h3');
+        const ta = document.createElement('a');
+        ta.setAttribute('href', toPath(titleLink.getAttribute('href')));
+        ta.textContent = titleLink.textContent.replace(/\s+/g, ' ').trim();
+        h3.append(ta);
+        const ul = document.createElement('ul');
+        items.forEach((a) => {
+          const li = document.createElement('li');
+          const link = document.createElement('a');
+          link.setAttribute('href', toPath(a.getAttribute('href')));
+          link.textContent = a.textContent.replace(/\s+/g, ' ').trim();
+          li.append(link);
+          ul.append(li);
+        });
+        section.append(h3, ul);
+        holder.append(section);
+        payload.params.fragments = payload.params.fragments || [];
+        if (!payload.params.fragments.some((f) => f.path === '/fragments/news-room-nav')) {
+          payload.params.fragments.push({ element: holder, path: '/fragments/news-room-nav' });
+        }
+        payload.params.extraMetadata = { ...(payload.params.extraMetadata || {}), template: 'news' };
+      }
+    }
+
     // Left section navigation (pure site navigation) and its menu title.
     // Keep #widgets (authorable widget content) in #left-side-column.
     remove(root, [

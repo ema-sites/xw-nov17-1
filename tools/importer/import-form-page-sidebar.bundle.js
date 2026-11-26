@@ -555,6 +555,10 @@ var CustomImportScript = (() => {
           if (v && /%(?![0-9A-Fa-f]{2})/.test(v)) img.setAttribute(attr, v.replace(/%(?![0-9A-Fa-f]{2})/g, "%25"));
         });
       });
+      safeQueryAll(root, "img[src]").forEach((img) => {
+        const v = img.getAttribute("src");
+        if (v && /[()]/.test(v)) img.setAttribute("src", v.replace(/\(/g, "%28").replace(/\)/g, "%29"));
+      });
       safeQueryAll(root, 'a[href=""], a:not([href])').forEach((a) => {
         a.replaceWith(...a.childNodes);
       });
