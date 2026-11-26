@@ -361,6 +361,69 @@ var CustomImportScript = (() => {
         const headerContainer = header.closest("#mainform > div.container") || header;
         headerContainer.remove();
       }
+      const pageUrls = getPageUrl(payload, element);
+      const isNewsRoom = pageUrls.some((u) => {
+        try {
+          return /^\/city-hall\/news-room(\/|$)/i.test(new URL(u, "https://www.cnv.org").pathname);
+        } catch (e) {
+          return false;
+        }
+      });
+      const sideNav = root.querySelector("#left-side-navigation");
+      if (isNewsRoom && sideNav && payload.params) {
+        const toPath = (href) => {
+          try {
+            const u = new URL(href, "https://www.cnv.org/");
+            const p = u.pathname.replace(/\/+$/, "");
+            const fu = typeof WebImporter !== "undefined" && WebImporter.FileUtils && WebImporter.FileUtils.sanitizePath;
+            return p ? fu ? fu(p) : p.toLowerCase() : "/";
+          } catch (e) {
+            return href;
+          }
+        };
+        const titleLink = sideNav.querySelector(".navigation-title a[href]");
+        const items = [...sideNav.querySelectorAll(".side-nav > ul > li > a[href], ul > li > a[href]")].filter((a, i, all) => all.indexOf(a) === i && !a.closest("li li"));
+        if (titleLink && items.length) {
+          const holder = document.createElement("div");
+          const section = document.createElement("div");
+          const h3 = document.createElement("h3");
+          const ta = document.createElement("a");
+          ta.setAttribute("href", toPath(titleLink.getAttribute("href")));
+          ta.textContent = titleLink.textContent.replace(/\s+/g, " ").trim();
+          h3.append(ta);
+          const ul = document.createElement("ul");
+          items.forEach((a) => {
+            const li = document.createElement("li");
+            const link = document.createElement("a");
+            link.setAttribute("href", toPath(a.getAttribute("href")));
+            link.textContent = a.textContent.replace(/\s+/g, " ").trim();
+            li.append(link);
+            ul.append(li);
+          });
+          section.append(h3, ul);
+          holder.append(section);
+          payload.params.fragments = payload.params.fragments || [];
+          if (!payload.params.fragments.some((f) => f.path === "/fragments/news-room-nav")) {
+            payload.params.fragments.push({ element: holder, path: "/fragments/news-room-nav" });
+          }
+          payload.params.extraMetadata = __spreadProps(__spreadValues({}, payload.params.extraMetadata || {}), { template: "news" });
+        }
+      }
+      const isNewsArticle = pageUrls.some((u) => {
+        try {
+          return /^\/city-hall\/news-room\/[^/]+\/\d{4}\/\d{1,2}\/\d{1,2}\/[^/]+/i.test(new URL(u, "https://www.cnv.org").pathname);
+        } catch (e) {
+          return false;
+        }
+      });
+      if (isNewsArticle && payload.params) {
+        const para = [...element.querySelectorAll("p")].filter((p) => !p.closest("table") && !p.closest("#left-side-column, #left-side-navigation, #postHeader")).map((p) => p.textContent.replace(/\s+/g, " ").trim()).find((t) => t.split(" ").length >= 8);
+        if (para) {
+          const max = 220;
+          const text = para.length > max ? `${para.slice(0, para.lastIndexOf(" ", max))}\u2026` : para;
+          payload.params.extraMetadata = __spreadProps(__spreadValues({}, payload.params.extraMetadata || {}), { Description: text });
+        }
+      }
       remove(root, [
         "#left-side-navigation",
         "#left-side-navigation-items-deep",
@@ -462,6 +525,10 @@ var CustomImportScript = (() => {
           const v = img.getAttribute(attr);
           if (v && /%(?![0-9A-Fa-f]{2})/.test(v)) img.setAttribute(attr, v.replace(/%(?![0-9A-Fa-f]{2})/g, "%25"));
         });
+      });
+      safeQueryAll(root, "img[src]").forEach((img) => {
+        const v = img.getAttribute("src");
+        if (v && /[()]/.test(v)) img.setAttribute("src", v.replace(/\(/g, "%28").replace(/\)/g, "%29"));
       });
       safeQueryAll(root, 'a[href=""], a:not([href])').forEach((a) => {
         a.replaceWith(...a.childNodes);
@@ -764,6 +831,28 @@ var CustomImportScript = (() => {
       executeTransformers("afterTransform", main, payload);
       main.appendChild(document.createElement("hr"));
       WebImporter.rules.createMetadata(main, document);
+      const metaTable = [...main.querySelectorAll("table")].find((t) => {
+        var _a;
+        return /^metadata$/i.test((((_a = t.rows[0]) == null ? void 0 : _a.textContent) || "").trim());
+      });
+      Object.entries(params.extraMetadata || {}).forEach(([key, value]) => {
+        if (!metaTable) return;
+        const existing = [...metaTable.rows].find((r) => {
+          var _a;
+          return (((_a = r.cells[0]) == null ? void 0 : _a.textContent) || "").trim().toLowerCase() === key.toLowerCase();
+        });
+        if (existing && existing.cells[1]) {
+          existing.cells[1].textContent = value;
+          return;
+        }
+        const tr = document.createElement("tr");
+        [key, value].forEach((v) => {
+          const td = document.createElement("td");
+          td.textContent = v;
+          tr.append(td);
+        });
+        (metaTable.tBodies[0] || metaTable).append(tr);
+      });
       WebImporter.rules.transformBackgroundImages(main, document);
       WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
       params.fragments.forEach(({ element }) => {

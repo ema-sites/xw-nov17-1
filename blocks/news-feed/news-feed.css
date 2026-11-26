@@ -1,0 +1,88 @@
+/* News Feed: same look as the source homepage "City News & Events" panel */
+.news-feed {
+  margin-bottom: 40px;
+  color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  line-height: 22.4px;
+}
+
+.news-feed h2 {
+  margin: 0 0 15px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--link-color);
+  font-size: 35px;
+  font-weight: 300;
+  line-height: 35px;
+  color: var(--heading-color);
+}
+
+.news-feed-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.news-feed-list li {
+  margin: 0;
+  padding: 0;
+}
+
+.news-feed h3 {
+  margin: 0 0 3px;
+  padding-top: 16px;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 26px;
+}
+
+.news-feed h3 a:any-link {
+  color: var(--link-color);
+  font-weight: 400;
+}
+
+.news-feed p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 22px;
+  color: rgb(100 95 95);
+}
+
+/* "Read More": small bold uppercase, right-aligned, with a chevron */
+.news-feed p.news-feed-more {
+  font-size: 10px;
+  line-height: 12px;
+  text-align: right;
+}
+
+main .news-feed .news-feed-more a:any-link {
+  color: var(--link-color);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+main .news-feed .news-feed-more a:hover {
+  text-decoration: underline;
+}
+
+.news-feed .news-feed-more a::after {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 10px;
+  margin-left: 9px;
+  vertical-align: -1px;
+  background-color: currentcolor;
+  mask: url('../../icons/fa-angle-right.svg') center / contain no-repeat;
+}
+
+@media (width >= 900px) {
+  /* the source keeps this area in the main column (772px of 1140px) */
+  .news-feed {
+    width: 67.72%;
+  }
+}

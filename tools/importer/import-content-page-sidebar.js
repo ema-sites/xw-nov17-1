@@ -5753,6 +5753,12 @@ export default {
       .find((t) => /^metadata$/i.test((t.rows[0]?.textContent || '').trim()));
     Object.entries(params.extraMetadata || {}).forEach(([key, value]) => {
       if (!metaTable) return;
+      const existing = [...metaTable.rows]
+        .find((r) => (r.cells[0]?.textContent || '').trim().toLowerCase() === key.toLowerCase());
+      if (existing && existing.cells[1]) {
+        existing.cells[1].textContent = value;
+        return;
+      }
       const tr = document.createElement('tr');
       [key, value].forEach((v) => {
         const td = document.createElement('td');

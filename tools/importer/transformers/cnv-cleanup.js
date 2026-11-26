@@ -175,6 +175,24 @@ export default function transform(hookName, element, payload) {
       }
     }
 
+    // News articles (/news-room/<list>/<yyyy>/<m>/<d>/<slug>): the source has no meta description,
+    // so the first real body paragraph becomes the page Description, which the news index serves
+    // as the teaser for the homepage news-feed block.
+    const isNewsArticle = pageUrls.some((u) => {
+      try { return /^\/city-hall\/news-room\/[^/]+\/\d{4}\/\d{1,2}\/\d{1,2}\/[^/]+/i.test(new URL(u, 'https://www.cnv.org').pathname); } catch (e) { return false; }
+    });
+    if (isNewsArticle && payload.params) {
+      const para = [...element.querySelectorAll('p')]
+        .filter((p) => !p.closest('table') && !p.closest('#left-side-column, #left-side-navigation, #postHeader'))
+        .map((p) => p.textContent.replace(/\s+/g, ' ').trim())
+        .find((t) => t.split(' ').length >= 8);
+      if (para) {
+        const max = 220;
+        const text = para.length > max ? `${para.slice(0, para.lastIndexOf(' ', max))}…` : para;
+        payload.params.extraMetadata = { ...(payload.params.extraMetadata || {}), Description: text };
+      }
+    }
+
     // Left section navigation (pure site navigation) and its menu title.
     // Keep #widgets (authorable widget content) in #left-side-column.
     remove(root, [

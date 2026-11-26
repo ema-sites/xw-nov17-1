@@ -611,6 +611,24 @@
     ]
   },
   {
+    "id": "news-feed",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Heading"
+      },
+      {
+        "component": "number",
+        "valueType": "number",
+        "name": "limit",
+        "value": 4,
+        "label": "Number of articles (latest News Room articles, from the news index)"
+      }
+    ]
+  },
+  {
     "id": "notice",
     "fields": [
       {

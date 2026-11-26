@@ -208,6 +208,26 @@ export default {
 
     main.appendChild(document.createElement('hr'));
     WebImporter.rules.createMetadata(main, document);
+    // extra page metadata set by transformers (e.g. template: news); keys must match the
+    // page-metadata model field names exactly (md2jcr is case-sensitive)
+    const metaTable = [...main.querySelectorAll('table')]
+      .find((t) => /^metadata$/i.test((t.rows[0]?.textContent || '').trim()));
+    Object.entries(params.extraMetadata || {}).forEach(([key, value]) => {
+      if (!metaTable) return;
+      const existing = [...metaTable.rows]
+        .find((r) => (r.cells[0]?.textContent || '').trim().toLowerCase() === key.toLowerCase());
+      if (existing && existing.cells[1]) {
+        existing.cells[1].textContent = value;
+        return;
+      }
+      const tr = document.createElement('tr');
+      [key, value].forEach((v) => {
+        const td = document.createElement('td');
+        td.textContent = v;
+        tr.append(td);
+      });
+      (metaTable.tBodies[0] || metaTable).append(tr);
+    });
     WebImporter.rules.transformBackgroundImages(main, document);
     WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
 

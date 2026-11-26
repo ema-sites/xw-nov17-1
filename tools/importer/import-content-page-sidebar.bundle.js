@@ -1378,6 +1378,21 @@ var CustomImportScript = (() => {
           payload.params.extraMetadata = __spreadProps(__spreadValues({}, payload.params.extraMetadata || {}), { template: "news" });
         }
       }
+      const isNewsArticle = pageUrls.some((u) => {
+        try {
+          return /^\/city-hall\/news-room\/[^/]+\/\d{4}\/\d{1,2}\/\d{1,2}\/[^/]+/i.test(new URL(u, "https://www.cnv.org").pathname);
+        } catch (e) {
+          return false;
+        }
+      });
+      if (isNewsArticle && payload.params) {
+        const para = [...element.querySelectorAll("p")].filter((p) => !p.closest("table") && !p.closest("#left-side-column, #left-side-navigation, #postHeader")).map((p) => p.textContent.replace(/\s+/g, " ").trim()).find((t) => t.split(" ").length >= 8);
+        if (para) {
+          const max = 220;
+          const text = para.length > max ? `${para.slice(0, para.lastIndexOf(" ", max))}\u2026` : para;
+          payload.params.extraMetadata = __spreadProps(__spreadValues({}, payload.params.extraMetadata || {}), { Description: text });
+        }
+      }
       remove(root, [
         "#left-side-navigation",
         "#left-side-navigation-items-deep",
@@ -7316,6 +7331,14 @@ var CustomImportScript = (() => {
       });
       Object.entries(params.extraMetadata || {}).forEach(([key, value]) => {
         if (!metaTable) return;
+        const existing = [...metaTable.rows].find((r) => {
+          var _a;
+          return (((_a = r.cells[0]) == null ? void 0 : _a.textContent) || "").trim().toLowerCase() === key.toLowerCase();
+        });
+        if (existing && existing.cells[1]) {
+          existing.cells[1].textContent = value;
+          return;
+        }
         const tr = document.createElement("tr");
         [key, value].forEach((v) => {
           const td = document.createElement("td");

@@ -249,38 +249,6 @@ var CustomImportScript = (() => {
     el.textContent = text || cleanText3(a);
     return el;
   }
-  function newsCell(document, panel) {
-    const nodes = [];
-    const title = cleanText3(panel.querySelector(".firstLineTitle"));
-    if (title) {
-      const h = document.createElement("h2");
-      h.textContent = title;
-      nodes.push(h);
-    }
-    panel.querySelectorAll(".eventItem").forEach((item) => {
-      const titleLink = item.querySelector(".eventTitle a[href]");
-      const titleText = cleanText3(item.querySelector(".eventTitle"));
-      if (titleText) {
-        const h = document.createElement("h3");
-        if (titleLink) h.appendChild(link(document, titleLink, titleText));
-        else h.textContent = titleText;
-        nodes.push(h);
-      }
-      const abstract = cleanText3(item.querySelector(".eventAbstract"));
-      if (abstract) {
-        const p = document.createElement("p");
-        p.textContent = abstract;
-        nodes.push(p);
-      }
-      const more = item.querySelector(".learnMore a[href]");
-      if (more && cleanText3(more)) {
-        const p = document.createElement("p");
-        p.appendChild(link(document, more));
-        nodes.push(p);
-      }
-    });
-    return nodes;
-  }
   function linksCell(document, column) {
     const nodes = [];
     const title = cleanText3(column.querySelector(".links-title"));
@@ -300,20 +268,36 @@ var CustomImportScript = (() => {
     if (ul.children.length) nodes.push(ul);
     return nodes;
   }
+  function field(document, name, value) {
+    const frag = document.createDocumentFragment();
+    frag.appendChild(document.createComment(` field:${name} `));
+    frag.appendChild(document.createTextNode(String(value)));
+    return frag;
+  }
+  function newsFeedBlock(document, panel) {
+    const title = cleanText3(panel.querySelector(".firstLineTitle"));
+    const count = panel.querySelectorAll(".eventItem").length || 4;
+    if (!title && !panel.querySelector(".eventItem")) return null;
+    return WebImporter.Blocks.createBlock(document, {
+      name: "news-feed",
+      cells: [[field(document, "title", title)], [field(document, "limit", count)]]
+    });
+  }
   function parse4(element, { document }) {
-    const rows = [];
     const newsPanel = element.querySelector(".homeNewsPanel");
-    if (newsPanel) {
-      const news = newsCell(document, newsPanel);
-      if (news.length) rows.push([news, ""]);
-    }
+    const feed = newsPanel ? newsFeedBlock(document, newsPanel) : null;
+    const rows = [];
     const linkColumns = Array.from(element.querySelectorAll(".home-links > div")).map((col) => linksCell(document, col)).filter((nodes) => nodes.length);
     if (linkColumns.length) rows.push(linkColumns);
-    if (!rows.length) return;
-    const width = Math.max(2, ...rows.map((r) => r.length));
-    const cells = rows.map((r) => r.length < width ? r.concat(Array(width - r.length).fill("")) : r);
-    const block = WebImporter.Blocks.createBlock(document, { name: "columns (news)", cells });
-    element.replaceWith(block);
+    const out = [];
+    if (feed) out.push(feed);
+    if (rows.length) {
+      const width = Math.max(2, ...rows.map((r) => r.length));
+      const cells = rows.map((r) => r.length < width ? r.concat(Array(width - r.length).fill("")) : r);
+      out.push(WebImporter.Blocks.createBlock(document, { name: "columns (news)", cells }));
+    }
+    if (!out.length) return;
+    element.replaceWith(...out);
   }
 
   // tools/importer/transformers/cnv-cleanup.js
@@ -408,6 +392,69 @@ var CustomImportScript = (() => {
       if (header) {
         const headerContainer = header.closest("#mainform > div.container") || header;
         headerContainer.remove();
+      }
+      const pageUrls = getPageUrl(payload, element);
+      const isNewsRoom = pageUrls.some((u) => {
+        try {
+          return /^\/city-hall\/news-room(\/|$)/i.test(new URL(u, "https://www.cnv.org").pathname);
+        } catch (e) {
+          return false;
+        }
+      });
+      const sideNav = root.querySelector("#left-side-navigation");
+      if (isNewsRoom && sideNav && payload.params) {
+        const toPath = (href) => {
+          try {
+            const u = new URL(href, "https://www.cnv.org/");
+            const p = u.pathname.replace(/\/+$/, "");
+            const fu = typeof WebImporter !== "undefined" && WebImporter.FileUtils && WebImporter.FileUtils.sanitizePath;
+            return p ? fu ? fu(p) : p.toLowerCase() : "/";
+          } catch (e) {
+            return href;
+          }
+        };
+        const titleLink = sideNav.querySelector(".navigation-title a[href]");
+        const items = [...sideNav.querySelectorAll(".side-nav > ul > li > a[href], ul > li > a[href]")].filter((a, i, all) => all.indexOf(a) === i && !a.closest("li li"));
+        if (titleLink && items.length) {
+          const holder = document.createElement("div");
+          const section = document.createElement("div");
+          const h3 = document.createElement("h3");
+          const ta = document.createElement("a");
+          ta.setAttribute("href", toPath(titleLink.getAttribute("href")));
+          ta.textContent = titleLink.textContent.replace(/\s+/g, " ").trim();
+          h3.append(ta);
+          const ul = document.createElement("ul");
+          items.forEach((a) => {
+            const li = document.createElement("li");
+            const link2 = document.createElement("a");
+            link2.setAttribute("href", toPath(a.getAttribute("href")));
+            link2.textContent = a.textContent.replace(/\s+/g, " ").trim();
+            li.append(link2);
+            ul.append(li);
+          });
+          section.append(h3, ul);
+          holder.append(section);
+          payload.params.fragments = payload.params.fragments || [];
+          if (!payload.params.fragments.some((f) => f.path === "/fragments/news-room-nav")) {
+            payload.params.fragments.push({ element: holder, path: "/fragments/news-room-nav" });
+          }
+          payload.params.extraMetadata = __spreadProps(__spreadValues({}, payload.params.extraMetadata || {}), { template: "news" });
+        }
+      }
+      const isNewsArticle = pageUrls.some((u) => {
+        try {
+          return /^\/city-hall\/news-room\/[^/]+\/\d{4}\/\d{1,2}\/\d{1,2}\/[^/]+/i.test(new URL(u, "https://www.cnv.org").pathname);
+        } catch (e) {
+          return false;
+        }
+      });
+      if (isNewsArticle && payload.params) {
+        const para = [...element.querySelectorAll("p")].filter((p) => !p.closest("table") && !p.closest("#left-side-column, #left-side-navigation, #postHeader")).map((p) => p.textContent.replace(/\s+/g, " ").trim()).find((t) => t.split(" ").length >= 8);
+        if (para) {
+          const max = 220;
+          const text = para.length > max ? `${para.slice(0, para.lastIndexOf(" ", max))}\u2026` : para;
+          payload.params.extraMetadata = __spreadProps(__spreadValues({}, payload.params.extraMetadata || {}), { Description: text });
+        }
       }
       remove(root, [
         "#left-side-navigation",

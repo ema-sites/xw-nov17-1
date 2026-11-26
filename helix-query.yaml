@@ -1,0 +1,23 @@
+version: 1
+
+indices:
+  # News Room articles (What's New + News Releases), read by the news-feed block.
+  # The block keeps only dated article paths (/<yyyy>/<m>/<d>/<slug>) and sorts by that date.
+  news:
+    include:
+      - /city-hall/news-room/whats-new/**
+      - /city-hall/news-room/news-releases/**
+    target: /news-index.json
+    properties:
+      title:
+        select: head > meta[property="og:title"]
+        value: attribute(el, "content")
+      description:
+        select: head > meta[name="description"]
+        value: attribute(el, "content")
+      image:
+        select: head > meta[property="og:image"]
+        value: match(attribute(el, "content"), "https:\/\/[^/]+(\/.*)")
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
