@@ -31,7 +31,6 @@
       "cards-icon",
       "cards-teaser",
       "columns-feature",
-      "columns-news",
       "columns-related-links",
       "embed-video",
       "listing-filter",
@@ -87,12 +86,6 @@
   },
   {
     "id": "columns-feature",
-    "components": [
-      "column"
-    ]
-  },
-  {
-    "id": "columns-news",
     "components": [
       "column"
     ]

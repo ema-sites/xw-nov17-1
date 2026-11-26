@@ -263,6 +263,13 @@ export default function transform(hookName, element, payload) {
       });
     });
 
+    // Parentheses in an image address ("...-(1).jpg") end the markdown image URL early, so the
+    // image reaches AEM as a link instead of an image: percent-encode them.
+    safeQueryAll(root, 'img[src]').forEach((img) => {
+      const v = img.getAttribute('src');
+      if (v && /[()]/.test(v)) img.setAttribute('src', v.replace(/\(/g, '%28').replace(/\)/g, '%29'));
+    });
+
     // Links with no address (e.g. the hero banner image wrapped in <a href="">): keep the content.
     safeQueryAll(root, 'a[href=""], a:not([href])').forEach((a) => {
       a.replaceWith(...a.childNodes);

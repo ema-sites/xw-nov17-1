@@ -312,7 +312,7 @@ var CustomImportScript = (() => {
     if (!rows.length) return;
     const width = Math.max(2, ...rows.map((r) => r.length));
     const cells = rows.map((r) => r.length < width ? r.concat(Array(width - r.length).fill("")) : r);
-    const block = WebImporter.Blocks.createBlock(document, { name: "columns-news", cells });
+    const block = WebImporter.Blocks.createBlock(document, { name: "columns (news)", cells });
     element.replaceWith(block);
   }
 
@@ -510,6 +510,10 @@ var CustomImportScript = (() => {
           const v = img.getAttribute(attr);
           if (v && /%(?![0-9A-Fa-f]{2})/.test(v)) img.setAttribute(attr, v.replace(/%(?![0-9A-Fa-f]{2})/g, "%25"));
         });
+      });
+      safeQueryAll(root, "img[src]").forEach((img) => {
+        const v = img.getAttribute("src");
+        if (v && /[()]/.test(v)) img.setAttribute("src", v.replace(/\(/g, "%28").replace(/\)/g, "%29"));
       });
       safeQueryAll(root, 'a[href=""], a:not([href])').forEach((a) => {
         a.replaceWith(...a.childNodes);

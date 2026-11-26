@@ -102,6 +102,8 @@ export default function parse(element, { document }) {
   const width = Math.max(2, ...rows.map((r) => r.length));
   const cells = rows.map((r) => (r.length < width ? r.concat(Array(width - r.length).fill('')) : r));
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'columns-news', cells });
+  // md2jcr maps every "Columns ..." block to the AEM columns component and drops the name, so the
+  // news layout is a variant class of columns (kept through the columns model's classes field).
+  const block = WebImporter.Blocks.createBlock(document, { name: 'columns (news)', cells });
   element.replaceWith(block);
 }

@@ -40,9 +40,31 @@ function decorateLinks(root) {
 }
 
 /** Tags fragment elements by their content shape so CSS can lay them out. */
+/**
+ * The logo paragraph: a linked image, an unlinked image (wrapped in a home link here), or an empty
+ * home link left by AEM/md2jcr, which drops an image inside a link (filled from the code repo).
+ */
+function asLogo(p) {
+  if (isImageLink(p)) return true;
+  if (p.textContent.trim()) return false;
+  const pic = p.querySelector(':scope > picture, :scope > img');
+  const emptyHome = p.querySelector(':scope > a[href="/"]:empty');
+  if (!pic && !emptyHome) return false;
+  const link = emptyHome || el('a');
+  if (!emptyHome) {
+    link.href = '/';
+    p.append(link);
+  }
+  link.append(pic || Object.assign(document.createElement('img'), {
+    src: `${window.hlx?.codeBasePath || ''}/icons/footer-cnv-logo.jpg`,
+    alt: 'City of North Vancouver',
+  }));
+  return true;
+}
+
 function decorateColumn(column) {
   column.querySelectorAll(':scope > p').forEach((p) => {
-    p.classList.add(isImageLink(p) ? 'footer-logo' : 'footer-text');
+    p.classList.add(asLogo(p) ? 'footer-logo' : 'footer-text');
   });
   column.querySelectorAll(':scope > ul').forEach((ul) => {
     const items = [...ul.children];

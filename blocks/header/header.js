@@ -16,6 +16,9 @@ async function fetchNavFragment() {
   if (!resp.ok) return null;
   const html = await resp.text();
   const doc = new DOMParser().parseFromString(html, 'text/html');
+  // AEM (Universal Editor) wraps a list item's label in a paragraph when the item has a sub-list
+  // (<li><p><a>..</a></p><ul>..): unwrap it so every item reads as <li><a>..</a><ul>..
+  doc.querySelectorAll('li > p').forEach((p) => p.replaceWith(...p.childNodes));
   // resolve relative media against the fragment URL, not the current page
   doc.querySelectorAll('img[src], source[srcset]').forEach((media) => {
     if (media.hasAttribute('src')) media.setAttribute('src', new URL(media.getAttribute('src'), resp.url).href);
@@ -93,6 +96,12 @@ function buildBrand(section) {
   const brand = el('div', 'nav-brand');
   const images = [...section.querySelectorAll('img')];
   const link = section.querySelector('a');
+  // AEM (md2jcr) drops an image that sits inside a link, so the brand can arrive as empty
+  // home links: fall back to the logos kept in the code repo.
+  if (!images.length) {
+    [['cnv-logo.png', 'City of North Vancouver logo'], ['cnv-logo-mobile.svg', 'City of North Vancouver']]
+      .forEach(([file, alt]) => images.push(el('img', '', { src: `${window.hlx?.codeBasePath || ''}/icons/${file}`, alt })));
+  }
   const home = el('a', 'nav-brand-link', { href: link ? link.getAttribute('href') : '/' });
   home.setAttribute('aria-label', images[0]?.getAttribute('alt') || 'Home');
   images.forEach((img, i) => {
@@ -112,7 +121,8 @@ function buildSearch(p) {
   const link = p.querySelector('a');
   const action = link ? link.getAttribute('href') : '/search';
   const label = (link ? link.textContent : '').trim() || 'Search';
-  const icon = p.querySelector('picture') || p.querySelector('img');
+  const icon = p.querySelector('picture') || p.querySelector('img')
+    || el('img', '', { src: `${window.hlx?.codeBasePath || ''}/icons/search.jpg`, alt: '' });
   const form = el('form', 'nav-search', { role: 'search', action });
   const input = el('input', 'nav-search-input', {
     type: 'text', name: 'searchTerm', placeholder: label, 'aria-label': label, autocomplete: 'off',
