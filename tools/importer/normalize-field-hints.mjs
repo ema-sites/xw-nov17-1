@@ -44,4 +44,5 @@ walk(root).forEach((file) => {
     changedHints += count;
   }
 });
+// eslint-disable-next-line no-console
 console.log(JSON.stringify({ changedFiles, changedHints }));
