@@ -12,3 +12,6 @@ localhost-key.pem
 migration-work/navigation-validation/
 
 migration-work/footer-validation/
+
+# import run reports (generated)
+tools/importer/reports/
